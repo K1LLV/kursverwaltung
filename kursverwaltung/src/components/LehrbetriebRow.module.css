@@ -1,0 +1,64 @@
+.row {
+    background-color: #454545;
+    border-radius: 12px;
+    border-color: #242424;
+    border-width: 10px;
+    margin-top: 5px;
+    width: 95%;
+}
+
+.info{
+    width: 100%;
+}
+
+.info, .a, .b, .c, .d {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.a{
+    width: 98%;
+}
+
+.b{
+    width: 80%;
+}
+
+.c{
+    width: 70%;
+}
+
+.d {
+    width: 60%;
+}
+
+.e {
+    width: 30%;
+}
+
+.info {
+    margin: 1vw 1vw;
+}
+
+.remove, .edit {
+    height: 2.5vw;
+    width: 2.5vw;
+}
+
+.remove {
+    margin-left: 1vw;
+}
+
+.removeButton {
+    background-color: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
+    text-align: inherit;
+    font: inherit;
+    border-radius: 0;
+    appearance: none;
+}
+
+
