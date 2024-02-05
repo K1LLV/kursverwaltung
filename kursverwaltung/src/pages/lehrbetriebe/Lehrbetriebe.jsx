@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from './Lehrbetriebe.module.css';
 import LehrbetriebRow from './LehrbetriebRow';
+import DescriptionRow from '../../components/DescriptionRow';
 import AddButton from '../../UI/AddButton';
 
 const Lehrbetriebe = props => {
@@ -51,6 +52,7 @@ const Lehrbetriebe = props => {
                 
             </div>
             <div className={styles.results}>
+                <DescriptionRow a="Firma" b="Strasse" c="PLZ" d="Ort"/>
                 {rows}
                 <AddButton onAdd={addHandler}/>
             </div>
