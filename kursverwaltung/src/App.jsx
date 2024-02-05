@@ -1,16 +1,17 @@
 import { useState } from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css'
-import axios from 'axios';
 import Home from './pages/Home';
 import Root from './pages/Root';
-import Lehrbetriebe from './pages/Lehrbetriebe';
-import Lernende from './pages/Lernende';
-import LehrbetriebLernende from './pages/LehrbetriebLernende';
-import Laender from './pages/Laender';
-import Dozenten from './pages/Dozenten';
-import Kurse from './pages/Kurse';
-import KurseLernende from './pages/KurseLernende';
+import Lehrbetriebe from './pages/lehrbetriebe/Lehrbetriebe';
+import AddLehrbetrieb from './pages/lehrbetriebe/AddLehrbetrieb'
+import Lernende from './pages/lernende/Lernende';
+import LehrbetriebLernende from './pages/lehrbetriebLernende/LehrbetriebLernende';
+import EditLehrbetrieb from './pages/lehrbetriebe/EditLehrbetrieb';
+import Laender from './pages/laender/Laender';
+import Dozenten from './pages/dozenten/Dozenten';
+import Kurse from './pages/kurse/Kurse';
+import KurseLernende from './pages/kurseLernende/KurseLernende';
 import ErrorPage from './pages/Error';
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
       children: [
         { index: true, element: <Home/>},
         { path: 'lehrbetriebe', element: <Lehrbetriebe/>},
+        { path: 'lehrbetriebe/add', element: <AddLehrbetrieb/>},
+        { path: 'lehrbetriebe/:id/edit', element: <EditLehrbetrieb/>},
         { path: 'lernende', element: <Lernende/>},
         { path: 'lehrbetrieb_lernende', element: <LehrbetriebLernende/>},
         { path: 'laender', element: <Laender/>},

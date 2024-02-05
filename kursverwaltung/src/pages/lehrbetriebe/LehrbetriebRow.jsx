@@ -1,8 +1,29 @@
 import { CiEdit } from "react-icons/ci";
 import { CiSquareRemove } from "react-icons/ci";
 import styles from './LehrbetriebRow.module.css';
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const LehrbetriebRow = props => {
+
+    const navigate = useNavigate();
+
+    const deleteHandler = () => {
+        axios.delete(`https://alex.undefiniert.ch/lehrbetriebe/${props.id}`)
+            .then(response => {
+                console.log(response.data.data);
+                props.onRender();
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    const editHandler = () => {
+        navigate(`${props.id}/edit`);
+    };
+
+
     return(
         <div className={styles.row}>
             <div className={styles.info}>
@@ -16,8 +37,10 @@ const LehrbetriebRow = props => {
                             <div className={styles.d}>
                                 <div className={styles.ort}>{props.ort}</div>
                                 <div className={styles.e}>
-                                    <CiEdit className={styles.edit}/>
-                                    <button className={styles.removeButton}>
+                                    <button className={styles.editButton} onClick={editHandler}>
+                                        <CiEdit className={styles.edit}/>
+                                    </button>
+                                    <button className={styles.removeButton} onClick={deleteHandler}>
                                         <CiSquareRemove className={styles.remove}/>
                                     </button>
                                 </div>

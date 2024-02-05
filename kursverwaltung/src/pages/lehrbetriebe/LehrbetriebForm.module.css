@@ -1,0 +1,57 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 4vw;
+}
+
+.input {
+    margin-bottom: 1vw;
+    height: auto;
+    width: 40vw;
+    border-radius: 12px;
+    border-color: white;
+    font-weight: bold;
+    font-size: 1vw;
+    padding: 0.5vw 1vw;
+}
+
+.submitContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.submitButton {
+  appearance: button;
+  backface-visibility: hidden;
+  background-color: #405cf5;
+  border-radius: 12px;
+  border-width: 0;
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
+  font-size: 1vw;
+  height: 3vw;
+  line-height: 1.15;
+  outline: none;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transform: translateZ(0);
+  transition: all .2s,box-shadow .08s ease-in;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 20%;
+}
+
+.submitButton:disabled {
+  cursor: default;
+}
+
+.submitButton:focus {
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
+}
