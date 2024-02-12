@@ -1,12 +1,15 @@
 import styles from './LernendeRow.module.css';
 import { useNavigate } from 'react-router-dom';
 import Row from '../../components/Row';
+import axios from 'axios';
 
 const LernendeRow = props => {
 
     const navigate = useNavigate();
 
-    const deleteHandler = () => {
+    const deleteHandler = (e) => {
+        e.stopPropagation();
+
         axios.delete(`https://alex.undefiniert.ch/lernende/${props.id}`)
             .then(response => {
                 console.log(response.data.data);
@@ -17,7 +20,10 @@ const LernendeRow = props => {
             });
     }
 
-    const editHandler = () => {
+    const handleOpenProfile = () => props.onOpenProfile(props.id);
+
+    const editHandler = (e) => {
+        e.stopPropagation();
         navigate(`${props.id}/edit`);
     };
 
@@ -29,7 +35,8 @@ const LernendeRow = props => {
             c={props.beruf}
             d={props.betrieb}
             onEdit={editHandler}
-            onDelete={deleteHandler}/>
+            onDelete={deleteHandler}
+            onClick={handleOpenProfile}/>
     );
 };
 

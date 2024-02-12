@@ -4,7 +4,7 @@ import styles from "./Row.module.css";
 
 const Row = props => {
     return(
-        <div className={styles.row}>
+        <div className={styles.row} onClick={props.onClick}>
             <div className={styles.info}>
                 <div className={styles.id}>{props.id}</div>
                 <div className={styles.a}>

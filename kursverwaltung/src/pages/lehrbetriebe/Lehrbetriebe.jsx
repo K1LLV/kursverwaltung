@@ -48,9 +48,6 @@ const Lehrbetriebe = props => {
     return(
         <div>
             <div className={styles.title}>Lehrbetriebe</div>
-            <div>
-                
-            </div>
             <div className={styles.results}>
                 <DescriptionRow a="Firma" b="Strasse" c="PLZ" d="Ort"/>
                 {rows}

@@ -4,6 +4,7 @@ import axios from "axios";
 import styles from "./Lernende.module.css";
 import DescriptionRow from "../../components/DescriptionRow";
 import LernendeRow from "./LernendeRow";
+import AddButton from "../../UI/AddButton";
 
 const Lernende = props => {
     const [shouldRender, setShouldRender] = useState(true);
@@ -21,10 +22,13 @@ const Lernende = props => {
         navigate('/lernende/add');
     };
 
+    const handleOpenProfile = (id) => {
+        navigate(`/lernende/${id}`);
+    };
+
     useEffect(() => {
         axios.get('https://alex.undefiniert.ch/lehrbetriebe')
             .then(response => {
-                console.log(response.data.data);
                 setBetriebe(response.data.data);
             })
             .catch(error => {
@@ -44,7 +48,6 @@ const Lernende = props => {
     useEffect(() => {
         axios.get('https://alex.undefiniert.ch/lernende')
             .then(response => {
-                console.log(response.data.data);
                 setLernende(response.data.data);
             })
             .catch(error => {
@@ -78,18 +81,20 @@ const Lernende = props => {
             beruf={getBeruf(x.id_lernende)}
             betrieb={getBetrieb(x.id_lernende)}
             onRender={renderHandler}
+            onOpenProfile={handleOpenProfile}
         />
     ))
     : [];
 
-    console.log(results);
+    console.log(lernende);
 
     return(
         <div>
             <div className={styles.title}>Lernende</div>
             <div className={styles.results}>
-                {results && <DescriptionRow a="Vorname" b="Nachname" c="Betrieb" d="E-mail Adresse"/>}
+                {results && <DescriptionRow a="Vorname" b="Nachname" c="Beruf" d="Betrieb"/>}
                 {results}
+                <AddButton onAdd={addHandler}/>
             </div>
         </div>
     );

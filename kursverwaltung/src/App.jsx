@@ -6,6 +6,9 @@ import Root from './pages/Root';
 import Lehrbetriebe from './pages/lehrbetriebe/Lehrbetriebe';
 import AddLehrbetrieb from './pages/lehrbetriebe/AddLehrbetrieb'
 import Lernende from './pages/lernende/Lernende';
+import LernendeProfile from './pages/lernende/LernendeProfile';
+import AddLernende from './pages/lernende/AddLernende';
+import EditLernende from './pages/lernende/EditLernende';
 import LehrbetriebLernende from './pages/lehrbetriebLernende/LehrbetriebLernende';
 import EditLehrbetrieb from './pages/lehrbetriebe/EditLehrbetrieb';
 import Laender from './pages/laender/Laender';
@@ -26,6 +29,9 @@ function App() {
         { path: 'lehrbetriebe/add', element: <AddLehrbetrieb/>},
         { path: 'lehrbetriebe/:id/edit', element: <EditLehrbetrieb/>},
         { path: 'lernende', element: <Lernende/>},
+        { path: 'lernende/:id', element: <LernendeProfile/>},
+        { path: 'lernende/add', element: <AddLernende/>},
+        { path: 'lernende/:id/edit', element: <EditLernende/>},
         { path: 'lehrbetrieb_lernende', element: <LehrbetriebLernende/>},
         { path: 'laender', element: <Laender/>},
         { path: 'dozenten', element: <Dozenten/>},
