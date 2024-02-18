@@ -28,7 +28,8 @@ const LernendeRow = props => {
     };
 
     return(
-        <Row 
+        <Row
+            styles={styles}
             id={props.id}
             a={props.vorname}
             b={props.nachname}

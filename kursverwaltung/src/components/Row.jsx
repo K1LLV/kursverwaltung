@@ -7,15 +7,15 @@ const Row = props => {
         <div className={styles.row} onClick={props.onClick}>
             <div className={styles.info}>
                 <div className={styles.id}>{props.id}</div>
-                <div className={styles.a}>
+                <div className={props.styles.a}>
                     <div className={styles.firma}>{props.a}</div>
-                    <div className={styles.b}>
+                    <div className={props.styles.b}>
                         <div className={styles.strasse}>{props.b}</div>
-                        <div className={styles.c}>
+                        <div className={props.styles.c}>
                             <div>{props.c}</div>
-                            <div className={styles.d}>
+                            <div className={props.styles.d}>
                                 <div className={styles.ort}>{props.d}</div>
-                                <div className={styles.e}>
+                                <div className={props.styles.e}>
                                     <button className={styles.editButton} onClick={props.onEdit}>
                                         <CiEdit className={styles.edit}/>
                                     </button>

@@ -21,26 +21,7 @@
     flex-direction: row;
     align-items: center;
     margin: 2vw 0;
-    justify-content: space-between;
-}
-
-.contact {
-    background-color: rgb(58, 63, 58);
-    border-radius: 1vw;
-    padding: 2vw 1vw;
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.contactTitle {
-    font-size: 2vw;
-    font-weight: bold;
-}
-
-.email, .emailPrivat, .handy, .contactTitle {
-    margin-bottom: 1vw;
+  
 }
 
 .header {
@@ -50,4 +31,49 @@
 .name {
     font-size: 4vw;
     font-weight: bold;
+}
+
+.contact {
+    background-color: rgb(58, 63, 58);
+    border-radius: 1vw;
+    padding: 1vw 1vw;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.title {
+    font-size: 2vw;
+    font-weight: bold;
+}
+
+.email, .emailPrivat, .handy, .title {
+    margin-bottom: 1vw;
+}
+
+.kurseNoten {
+    display: flex;
+    flex-direction: column;
+    padding: 1vw 1vw;
+    background-color: rgb(58, 63, 58);
+    border-radius: 1vw;
+    margin-left: 2vw;
+    width: 60%;
+    height: 20vw;
+}
+
+.kurseResultsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.kurseResults {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    width: 100%;
+    max-height: 49%;
+    margin-bottom: 1vw;
 }

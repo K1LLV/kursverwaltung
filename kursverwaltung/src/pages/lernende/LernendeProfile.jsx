@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Kontakt from "./LernendeProfile/Kontakt";
 import axios from "axios";
 import styles from './LernendeProfile.module.css';
+import KurseRow from "./LernendeProfile/KurseRow";
 
 const LernendeProfile = porps => {
     const navigate = useNavigate();
@@ -18,6 +20,8 @@ const LernendeProfile = porps => {
             .catch(error => {
                 console.log(error);
             });
+        
+            
     }, []);
     
     if(!lernende) {
@@ -32,20 +36,21 @@ const LernendeProfile = porps => {
                         {lernende.vorname} {lernende.nachname}
                     </div>
                 </div>
-
                 <div className={styles.a}>
-                    <div className={styles.contact}>
-                        <div className={styles.contactTitle}>Kontakt</div>
-                        <div className={styles.email}>Email: {lernende.email}</div>
-                        <div className={styles.emailPrivat}>Private Email: {lernende.email_privat}</div>
-                        <div className={styles.handy}>Handynummer: {lernende.handy}</div>
-                        <div className={styles.telefon}>Telefon: {lernende.telefon}</div>
+                    <Kontakt styles={styles} lernende={lernende}/>
+                    <div className={styles.kurseNoten}>
+                        <div className={styles.title}>Kurse</div>
+                        <div className={styles.kurseResultsContainer}>
+                            <div className={styles.kurseResults}>
+                                <KurseRow/>
+                                <KurseRow/>
+                                <KurseRow/>
+                                <KurseRow/>
+                                <KurseRow/>
+                                <KurseRow/>
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-
-                <div className={styles.kurseNoten}>
-
                 </div>
                 <div className={styles.activities}>
 
