@@ -2,9 +2,15 @@
     background-color: #454545;
     border-radius: 12px;
     border-color: #242424;
-    margin-top: 5px;
+    margin-bottom: 5px;
     font-size: 1vw;
     width: 95%;
+    scroll-snap-align: start;
+}
+
+.row:hover {
+    background-color: #666;
+    cursor: pointer
 }
 
 .info{

@@ -92,7 +92,7 @@ const Lernende = props => {
         <div>
             <div className={styles.title}>Lernende</div>
             <div className={styles.results}>
-                {results && <DescriptionRow a="Vorname" b="Nachname" c="Beruf" d="Betrieb"/>}
+                {results && <DescriptionRow a="ID" b="Vorname" c="Nachname" d="Beruf" e="Betrieb" styles={styles}/>}
                 {results}
                 <AddButton onAdd={addHandler}/>
             </div>

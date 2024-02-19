@@ -9,3 +9,41 @@
     font-weight: bold;
     font-size: 3vw;
 }
+
+.descRow {
+    background-color: #454545;
+    border-radius: 12px;
+    border-color: #242424;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 1vw;
+    height: auto;
+    width: 95%;
+}
+
+.descA, .descB, .descC, .descD, .descE {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.descA{
+    width: 100%;
+    padding: 1vw 1vw;
+}
+
+.descB{
+    width: 98%;
+}
+
+.descC{
+    width: 80%;
+}
+
+.descD{
+    width: 70%;
+}
+
+.descE {
+    width: 60%;
+}

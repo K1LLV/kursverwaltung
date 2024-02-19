@@ -45,11 +45,13 @@ const Lehrbetriebe = props => {
         />)
     : [];
 
+    console.log(styles);
+
     return(
         <div>
             <div className={styles.title}>Lehrbetriebe</div>
             <div className={styles.results}>
-                <DescriptionRow a="Firma" b="Strasse" c="PLZ" d="Ort"/>
+                <DescriptionRow a="ID" b="Firma" c="Strasse" d="PLZ" e="Ort" styles={styles}/>
                 {rows}
                 <AddButton onAdd={addHandler}/>
             </div>

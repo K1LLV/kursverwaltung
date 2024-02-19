@@ -1,5 +1,3 @@
-import { CiEdit } from "react-icons/ci";
-import { CiSquareRemove } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from './LehrbetriebRow.module.css';
@@ -27,7 +25,8 @@ const LehrbetriebRow = props => {
 
 
     return(
-        <Row 
+        <Row
+            styles={styles}
             id={props.id}
             a={props.firma}
             b={props.strasse}

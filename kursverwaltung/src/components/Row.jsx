@@ -16,10 +16,10 @@ const Row = props => {
                             <div className={props.styles.d}>
                                 <div className={styles.ort}>{props.d}</div>
                                 <div className={props.styles.e}>
-                                    <button className={styles.editButton} onClick={props.onEdit}>
+                                    <button className={styles.editButton} onClick={props.onEdit} title="Edit">
                                         <CiEdit className={styles.edit}/>
                                     </button>
-                                    <button className={styles.removeButton} onClick={props.onDelete}>
+                                    <button className={styles.removeButton} onClick={props.onDelete} title="Remove">
                                         <CiSquareRemove className={styles.remove}/>
                                     </button>
                                 </div>

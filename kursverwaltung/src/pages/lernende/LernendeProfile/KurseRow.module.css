@@ -5,7 +5,7 @@
 }
 
 .a{
-    width: 98%;
+    width: 100%;
 }
 
 .b{
@@ -13,13 +13,28 @@
 }
 
 .c{
-    width: 70%;
+    width: 60%;
 }
 
 .d {
-    width: 90%;
+    width: 100%;
 }
 
 .e {
-    width: 30%;
+    width: 40%;
+}
+
+.note {
+    width: 3vw;
+    font-size: 0.9vw;
+    border-radius: 1vw;
+    padding-left: 0.5vw;
+    appearance: none;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 0.2vw;
 }
