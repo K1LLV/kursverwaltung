@@ -6,11 +6,13 @@ const AddKursNoteForm = props => {
 
     const [formData, setFormData] = useState(
         {
-            fk_id_kurs: 0,
+            fk_id_kurs: props.kurse[0].id_kurs,
             fk_id_lernende: props.id_lernende,
             note: 1
         }
     );
+
+    console.log(props.kurse);
 
     const kurseOptions = props.kurse
     ? props.kurse.map(x => 

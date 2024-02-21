@@ -26,6 +26,20 @@ const KurseRow = props => {
                 });
     };
 
+    const handleDelete = () => {
+        axios.delete(`https://alex.undefiniert.ch/kurse_lernende/${props.kursLernende.id_kurs_lernende}`)
+            .then(() => {
+                setTimeout(() => {
+                    console.log("Hello, World!");
+                }, 7000);
+                  
+                props.onUpdate();
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+
     const noteView = !editNote 
     ? props.kursLernende.note
     : <form onSubmit={handleSubmit}>
@@ -49,7 +63,8 @@ const KurseRow = props => {
             b={props.kurs.kursthema}
             c={noteView}
             styles={styles}
-            onEdit={handleEdit}/>
+            onEdit={handleEdit}
+            onDelete={handleDelete}/>
     );
 };
 

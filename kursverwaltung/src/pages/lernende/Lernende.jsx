@@ -86,8 +86,6 @@ const Lernende = props => {
     ))
     : [];
 
-    console.log(lernende);
-
     return(
         <div>
             <div className={styles.title}>Lernende</div>
