@@ -7,6 +7,7 @@ import KurseRow from "./LernendeProfile/KurseRow";
 import DescriptionRow from "../../components/DescriptionRow";
 import AddButton from "../../UI/AddButton";
 import AddKursNoteForm from "./LernendeProfile/AddKursNoteForm";
+import LehrbetriebLernendeRow from "./LernendeProfile/LehrbetriebLernendeRow";
 
 const LernendeProfile = porps => {
     const navigate = useNavigate();
@@ -16,10 +17,15 @@ const LernendeProfile = porps => {
     const [kurse, setKurse] = useState(null);
     const [kurseLernende, setKurseLernende] = useState(null);
     const [kurseOfLernende, setKurseOfLernende] = useState([]);
-    const [isUpdate, setIsUpdate] = useState(false);
-    const [isAddKursNote, setIsAddKursNote] = useState(false);
     const [kurseLernendeWithLernende, setKurseLernendeWithLernende] = useState([]);
     const [kurseWithoutLernende, setKurseWithoutLernende] = useState([]);
+    const [lehrbetriebe, setLehrbetriebe] = useState([]);
+    const [lehrbetriebLernende, setLehrbetriebLernende] = useState([]);
+    const [lehrbetriebeOfLernende, setLehrbetriebeOfLernende] = useState([]);
+    const [lehrbetriebLernendeWithLernende, setLehrbetriebLernendeWithLernende] = useState([]);
+    const [lehrbetriebeWithoutLernende, setLehrbetriebeWithoutLernende] = useState([]);
+    const [isUpdate, setIsUpdate] = useState(false);
+    const [isAddKursNote, setIsAddKursNote] = useState(false);
 
     useEffect(() => {
         axios.get(`https://alex.undefiniert.ch/lernende/${params.id}`)
@@ -45,6 +51,23 @@ const LernendeProfile = porps => {
             .catch(error => {
                 console.log(error);
             });
+
+        axios.get('https://alex.undefiniert.ch/lehrbetriebe')
+            .then(response => {
+                setLehrbetriebe(response.data.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        
+        axios.get('https://alex.undefiniert.ch/lehrbetrieb_lernende')
+            .then(response => {
+                setLehrbetriebLernende(response.data.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
     }, [params.id, isUpdate]);
 
     useEffect(() => {
@@ -54,18 +77,32 @@ const LernendeProfile = porps => {
     }, [kurseLernende, kurse, lernende]);
 
     useEffect(() => {
-
-    }, [])
+        if (lernende && lehrbetriebe && lehrbetriebLernende) {
+            setLehrbetriebLernendeWithLernende(lehrbetriebLernende.filter(x => x.fk_id_lernende === lernende.id_lernende));
+        }
+    }, [lernende, lehrbetriebe, lehrbetriebLernende]);
 
     useEffect(() => {  
-        if (lernende && kurseLernende && kurse) { 
+        if (lernende && lehrbetriebe && kurse) { 
             setKurseWithoutLernende(kurse.filter(x =>
                 kurseLernendeWithLernende.every(y => y.fk_id_kurs !== x.id_kurs)
             ));
-            const lernendesKurse = kurseLernendeWithLernende.map(kursLernende => kurse.find(kurs => kurs.id_kurs === kursLernende.fk_id_kurs)).filter(kurs => kurs !== undefined);
-            setKurseOfLernende(lernendesKurse);
+            setKurseOfLernende(kurseLernendeWithLernende.map(kursLernende =>
+                kurse.find(kurs => kurs.id_kurs === kursLernende.fk_id_kurs)).filter(kurs => kurs !== undefined)
+            );
         }
-    }, [kurseLernende, kurse, lernende, kurseLernendeWithLernende]);
+    }, [kurseLernendeWithLernende]);
+
+    useEffect(() => {  
+        if (lernende && lehrbetriebe) { 
+            setLehrbetriebeWithoutLernende(lehrbetriebe.filter(x =>
+                lehrbetriebLernendeWithLernende.every(y => y.fk_id_lehrbetrieb !== x.id_lehrbetrieb)
+            ));
+            setLehrbetriebeOfLernende(lehrbetriebLernendeWithLernende.map(x => 
+                lehrbetriebe.find(y => y.id_lehrbetrieb === x.fk_id_lehrbetrieb)).filter(x => x !== undefined)
+            );
+        }
+    }, [lernende, lehrbetriebe, lehrbetriebLernendeWithLernende]);
 
     if (!lernende || !kurse) {
         return <></>;
@@ -86,6 +123,10 @@ const LernendeProfile = porps => {
             id_lernende={lernende.id_lernende}
             onCancel={handleCancelAddKursNote}
             onUpdate={handleUpdate}/>;
+    
+    console.log("lehrbetriebe:", lehrbetriebe);
+    console.log("lehrbetriebLernende:", lehrbetriebLernende);
+    console.log("lehrbetriebeOfLernende:", lehrbetriebeOfLernende);
 
     return(
         <div key="profilePage" className={styles.profileContainer}>
@@ -106,13 +147,12 @@ const LernendeProfile = porps => {
                                     kurseOfLernende.length > 0
                                         ? kurseOfLernende.map(x => {
                                             const kursLernende = kurseLernendeWithLernende.find(y => y.fk_id_kurs == x.id_kurs);
-                                            return kursLernende 
-                                            ?   <KurseRow 
-                                                key={x.id_kurs}
-                                                kurs={x}
-                                                kursLernende={kursLernende}
-                                                onUpdate={handleUpdate}/>
-                                            :   "Keine Kurse"
+                                            return  <KurseRow 
+                                                    key={x.id_kurs}
+                                                    kurs={x}
+                                                    kursLernende={kursLernende}
+                                                    onUpdate={handleUpdate}/>;
+                                               
                                         })
                                         : "Keine Kurse"
                                 }
@@ -122,8 +162,24 @@ const LernendeProfile = porps => {
                         <div className={styles.addContainer}><AddButton onAdd={handleAddKursNote}/></div>
                     </div>
                 </div>
-                <div className={styles.activities}>
-
+                <div className={styles.b}>
+                    <div className={styles.lehrbetriebe}>
+                        <div className={styles.title}>Lehrbetriebe</div>
+                        <DescriptionRow a="Firma" b="Beruf" c="Star" d="Ende" styles={styles}/>
+                        <div className={styles.lehrbetriebeResults}>
+                            {
+                                lehrbetriebeOfLernende.length > 0
+                                    ? lehrbetriebeOfLernende.map(x =>{
+                                        const lehrbetriebLernende = lehrbetriebLernendeWithLernende.find(y => y.fk_id_lehrbetrieb == x.id_lehrbetrieb);
+                                        return <LehrbetriebLernendeRow
+                                                key={lehrbetriebLernende.id_lehrbetrieb_lernende}
+                                                lehrbetrieb={x}
+                                                lehrbetriebLernende={lehrbetriebLernende}/>;
+                                    })
+                                    : "In keinem Lehrbetrieb!"
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

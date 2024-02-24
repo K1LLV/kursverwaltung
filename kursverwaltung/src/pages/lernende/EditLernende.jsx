@@ -91,21 +91,8 @@ const EditLernende = props => {
         e.preventDefault();
         axios.put(`https://alex.undefiniert.ch/lernende/${params.id}`, formData)
             .then(response => {
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-        
-        const lehrbetriebLernendeId = lehrbetriebLernende
-            .find(x => x.fk_id_lernende == lernendeId).id_lehrbetrieb_lernende
-
-        axios.put(
-            `https://alex.undefiniert.ch/lehrbetrieb_lernende/${lehrbetriebLernendeId}`,
-            { fk_id_lernende: lernendeId, fk_id_lehrbetrieb: betriebId, })
-            .then(response => {
-                console.log(response.data);
                 navigate('/lernende');
+                console.log(response.data);
             })
             .catch(error => {
                 console.log(error);

@@ -29,10 +29,6 @@ const KurseRow = props => {
     const handleDelete = () => {
         axios.delete(`https://alex.undefiniert.ch/kurse_lernende/${props.kursLernende.id_kurs_lernende}`)
             .then(() => {
-                setTimeout(() => {
-                    console.log("Hello, World!");
-                }, 7000);
-                  
                 props.onUpdate();
             })
             .catch(error => {
