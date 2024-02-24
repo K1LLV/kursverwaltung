@@ -23,3 +23,22 @@
 .e {
     width: 30%;
 }
+
+.editForm {
+    display: flex;
+    flex-direction: row;
+}
+
+.startInput {
+    margin-left: 17vw;
+}
+
+.endeInput {
+    margin-left: 3vw;
+}
+
+.dateInput, .berufInput {
+    width: 8vw;
+    font-size: 1vw;
+    font-family: 'Courier New', Courier, monospace;
+}
