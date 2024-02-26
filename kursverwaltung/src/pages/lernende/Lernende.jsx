@@ -22,10 +22,6 @@ const Lernende = props => {
         navigate('/lernende/add');
     };
 
-    const handleOpenProfile = (id) => {
-        navigate(`/lernende/${id}`);
-    };
-
     useEffect(() => {
         axios.get('https://alex.undefiniert.ch/lehrbetriebe')
             .then(response => {
@@ -81,7 +77,6 @@ const Lernende = props => {
             beruf={getBeruf(x.id_lernende)}
             betrieb={getBetrieb(x.id_lernende)}
             onRender={renderHandler}
-            onOpenProfile={handleOpenProfile}
         />
     ))
     : [];

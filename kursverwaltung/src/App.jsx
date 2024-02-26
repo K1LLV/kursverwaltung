@@ -4,6 +4,7 @@ import './App.css'
 import Home from './pages/Home';
 import Root from './pages/Root';
 import Lehrbetriebe from './pages/lehrbetriebe/Lehrbetriebe';
+import LehrbetriebProfile from './pages/lehrbetriebe/LehrbetriebProfile';
 import AddLehrbetrieb from './pages/lehrbetriebe/AddLehrbetrieb'
 import Lernende from './pages/lernende/Lernende';
 import LernendeProfile from './pages/lernende/LernendeProfile';
@@ -27,6 +28,7 @@ function App() {
         { index: true, element: <Home/>},
         { path: 'lehrbetriebe', element: <Lehrbetriebe/>},
         { path: 'lehrbetriebe/add', element: <AddLehrbetrieb/>},
+        { path: 'lehrbetriebe/:id', element: <LehrbetriebProfile/>},
         { path: 'lehrbetriebe/:id/edit', element: <EditLehrbetrieb/>},
         { path: 'lernende', element: <Lernende/>},
         { path: 'lernende/:id', element: <LernendeProfile/>},
