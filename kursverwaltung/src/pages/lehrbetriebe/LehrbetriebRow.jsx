@@ -23,6 +23,7 @@ const LehrbetriebRow = props => {
         navigate(`${props.id}/edit`);
     };
 
+    const handleOpenProfile = () => navigate(`/lehrbetriebe/${props.id}`);;
 
     return(
         <Row
@@ -33,7 +34,8 @@ const LehrbetriebRow = props => {
             c={props.plz}
             d={props.ort}
             onEdit={editHandler}
-            onDelete={deleteHandler}/>
+            onDelete={deleteHandler}
+            onClick={handleOpenProfile}/>
     );
 };
 

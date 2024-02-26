@@ -4,6 +4,7 @@ import './App.css'
 import Home from './pages/Home';
 import Root from './pages/Root';
 import Lehrbetriebe from './pages/lehrbetriebe/Lehrbetriebe';
+import LehrbetriebProfile from './pages/lehrbetriebe/LehrbetriebProfile';
 import AddLehrbetrieb from './pages/lehrbetriebe/AddLehrbetrieb'
 import Lernende from './pages/lernende/Lernende';
 import LernendeProfile from './pages/lernende/LernendeProfile';
@@ -16,6 +17,7 @@ import Dozenten from './pages/dozenten/Dozenten';
 import Kurse from './pages/kurse/Kurse';
 import KurseLernende from './pages/kurseLernende/KurseLernende';
 import ErrorPage from './pages/Error';
+import EditKurs from './pages/kurse/EditKurs';
 
 function App() {
   const router = createBrowserRouter([
@@ -27,6 +29,7 @@ function App() {
         { index: true, element: <Home/>},
         { path: 'lehrbetriebe', element: <Lehrbetriebe/>},
         { path: 'lehrbetriebe/add', element: <AddLehrbetrieb/>},
+        { path: 'lehrbetriebe/:id', element: <LehrbetriebProfile/>},
         { path: 'lehrbetriebe/:id/edit', element: <EditLehrbetrieb/>},
         { path: 'lernende', element: <Lernende/>},
         { path: 'lernende/:id', element: <LernendeProfile/>},
@@ -36,6 +39,7 @@ function App() {
         { path: 'laender', element: <Laender/>},
         { path: 'dozenten', element: <Dozenten/>},
         { path: 'kurse', element: <Kurse/>},
+        { path: 'kurse/:id/edit', element: <EditKurs/>},
         { path: 'kurse_lernende', element: <KurseLernende/>},
       ]
     },

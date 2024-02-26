@@ -20,7 +20,7 @@ const LernendeRow = props => {
             });
     }
 
-    const handleOpenProfile = () => props.onOpenProfile(props.id);
+    const handleOpenProfile = () => navigate(`/lernende/${props.id}`);;
 
     const editHandler = (e) => {
         e.stopPropagation();

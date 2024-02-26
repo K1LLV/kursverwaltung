@@ -3,7 +3,6 @@ import styles from './LernendeForm.module.css';
 const LernendeForm = props => {
 
     const handleInputChanged = (e) => props.onInputChanged(e); 
-    const handleBetriebChanged = (e) => props.onBetriebChanged(e);
 
     return(
         <form className={styles.form} onSubmit={props.onSubmit}>
