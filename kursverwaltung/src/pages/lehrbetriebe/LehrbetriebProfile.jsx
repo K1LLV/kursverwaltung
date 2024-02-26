@@ -47,7 +47,7 @@ const LehrbetriebProfile = props => {
 
 
     useEffect(() => {
-        setLernendeOfBetrieb(lehrbetriebeLernendeIncludingThis.map(x => 
+        setLernendeOfBetrieb(lehrbetriebeLernendeIncludingThis.filter(x => x.ende == null).map(x => 
             lernende.find(y => y.id_lernende === x.fk_id_lernende)));
     }, []);
 
