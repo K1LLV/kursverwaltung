@@ -7,20 +7,11 @@ import KursRow from "./KursRow";
 
 const Kurse = props => {
     const [kurse, setKurse] = useState([]);
-    const [dozenten, setDozenten] = useState([]);
 
     useEffect(() => {
         axios.get('https://alex.undefiniert.ch/kurse')
             .then(response => {
                 setKurse(response.data.data);
-            })
-            .catch(error => {
-                    console.log(error);
-            });
-
-        axios.get('https://alex.undefiniert.ch/dozenten')
-            .then(response => {
-                setDozenten(response.data.data);
             })
             .catch(error => {
                     console.log(error);
