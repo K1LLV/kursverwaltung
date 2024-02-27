@@ -19,9 +19,24 @@ const KursRow = props => {
             });
     }, []);
 
-    const editHandler = () => navigate(`/kurse/${props.kurs.id_kurs}/edit`);;
-    const deleteHandler = () => {};
-    const handleOpenProfile = () => {};
+    const editHandler = (e) => {
+        e.stopPropagation();
+        navigate(`/kurse/${props.kurs.id_kurs}/edit`)
+    };
+
+    const deleteHandler = () => {
+        axios.delete(`https://alex.undefiniert.ch/kurse/${props.kurs.id_kurs}`)
+            .then(response => {
+                console.log(response);
+                props.onUpdate();
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+    const handleOpenProfile = () => {
+        navigate(`/kurse/${props.kurs.id_kurs}`)
+    };
 
 
     const dozentField = props.kurs.fk_id_dozent == 0 || !dozent

@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 const Kurse = props => {
     const navigate = useNavigate();
     const [kurse, setKurse] = useState([]);
+    const [isUpdate, setIsUpdate] = useState(false);
 
     useEffect(() => {
         axios.get('https://alex.undefiniert.ch/kurse')
@@ -18,12 +19,13 @@ const Kurse = props => {
             .catch(error => {
                     console.log(error);
             });
-    }, []);
+    }, [isUpdate]);
 
     const addHandler = () => {navigate("/kurse/add")};
+    const handleUpdate = () => {setIsUpdate(x => !x)};
 
     const results = kurse.length > 0 
-    ? kurse.map(x => <KursRow key={x.id_kurs} kurs={x}/>)
+    ? kurse.map(x => <KursRow key={x.id_kurs} kurs={x} onUpdate={handleUpdate}/>)
     : kurse;
 
     console.log(kurse);
