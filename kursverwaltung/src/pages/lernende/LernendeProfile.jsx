@@ -68,11 +68,17 @@ const LernendeProfile = porps => {
                 console.log(error);
             });
 
-    }, [params.id, isUpdate]);
+    }, [isUpdate]);
 
     useEffect(() => {
         if (lernende && kurseLernende && kurse) {
-            setKurseLernendeWithLernende(kurseLernende.filter(x => x.fk_id_lernende === lernende.id_lernende));
+            const updatedKurseLernendeWithLernende = kurseLernende.filter(x => x.fk_id_lernende === lernende.id_lernende);
+            const updatedKurseOfLernende = updatedKurseLernendeWithLernende.map(kursLernende =>
+                kurse.find(kurs => kurs.id_kurs === kursLernende.fk_id_kurs)).filter(kurs => kurs !== undefined);
+            const updatedKurseWithoutLernende = kurse.filter(x => updatedKurseLernendeWithLernende.every(y => y.fk_id_kurs !== x.id_kurs));
+            setKurseLernendeWithLernende(updatedKurseLernendeWithLernende);
+            setKurseOfLernende(updatedKurseOfLernende);
+            setKurseWithoutLernende(updatedKurseWithoutLernende);
         }
     }, [kurseLernende, kurse, lernende]);
 
@@ -81,17 +87,6 @@ const LernendeProfile = porps => {
             setLehrbetriebLernendeWithLernende(lehrbetriebLernende.filter(x => x.fk_id_lernende === lernende.id_lernende));
         }
     }, [lernende, lehrbetriebe, lehrbetriebLernende]);
-
-    useEffect(() => {  
-        if (lernende && lehrbetriebe && kurse) { 
-            setKurseWithoutLernende(kurse.filter(x =>
-                kurseLernendeWithLernende.every(y => y.fk_id_kurs !== x.id_kurs)
-            ));
-            setKurseOfLernende(kurseLernendeWithLernende.map(kursLernende =>
-                kurse.find(kurs => kurs.id_kurs === kursLernende.fk_id_kurs)).filter(kurs => kurs !== undefined)
-            );
-        }
-    }, [kurseLernendeWithLernende]);
 
     useEffect(() => {  
         if (lernende && lehrbetriebe) { 
@@ -108,7 +103,10 @@ const LernendeProfile = porps => {
         return <></>;
     }
 
-    const handleUpdate = () => setIsUpdate(x => !x);
+    const handleUpdate = () => setIsUpdate(x => {
+        console.log("Update!");
+        return !x;
+    });
 
     const handleAddKursNote = () => setIsAddKursNote(true);
 
@@ -124,9 +122,8 @@ const LernendeProfile = porps => {
             onCancel={handleCancelAddKursNote}
             onUpdate={handleUpdate}/>;
     
-    console.log("lehrbetriebe:", lehrbetriebe);
-    console.log("lehrbetriebLernende:", lehrbetriebLernende);
-    console.log("lehrbetriebeOfLernende:", lehrbetriebeOfLernende);
+    console.log("kurseOfLernende:", kurseOfLernende);
+    console.log("kurseLernendeWithLernende:", kurseLernendeWithLernende);
 
     return(
         <div key="profilePage" className={styles.profileContainer}>

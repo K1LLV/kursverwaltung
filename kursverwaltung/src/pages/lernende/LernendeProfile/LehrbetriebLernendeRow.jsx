@@ -15,13 +15,10 @@ const LehrbetriebLernendeRow = props => {
         }
     );
 
-    console.log(props.lehrbetrieb.firma);
-
     const handleEdit = () => setIsEdit(x => !x);
     const handleDelete = () => {};
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData);
         axios.put(`https://alex.undefiniert.ch/lehrbetrieb_lernende/${props.lehrbetriebLernende.id_lehrbetrieb_lernende}`, formData)
             .then(() => {
                 setIsEdit(false);
@@ -70,8 +67,6 @@ const LehrbetriebLernendeRow = props => {
                 <button type="submit">Submit</button>
             </div>
         </form>
-
-    console.log(formData);
 
     const row = isEdit
     ?   <Row
