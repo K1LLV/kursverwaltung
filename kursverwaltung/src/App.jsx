@@ -15,9 +15,10 @@ import EditLehrbetrieb from './pages/lehrbetriebe/EditLehrbetrieb';
 import Laender from './pages/laender/Laender';
 import Dozenten from './pages/dozenten/Dozenten';
 import Kurse from './pages/kurse/Kurse';
+import AddKurs from './pages/kurse/AddKurs';
+import EditKurs from './pages/kurse/EditKurs';
 import KurseLernende from './pages/kurseLernende/KurseLernende';
 import ErrorPage from './pages/Error';
-import EditKurs from './pages/kurse/EditKurs';
 
 function App() {
   const router = createBrowserRouter([
@@ -39,6 +40,7 @@ function App() {
         { path: 'laender', element: <Laender/>},
         { path: 'dozenten', element: <Dozenten/>},
         { path: 'kurse', element: <Kurse/>},
+        { path: 'kurse/add', element: <AddKurs/>},
         { path: 'kurse/:id/edit', element: <EditKurs/>},
         { path: 'kurse_lernende', element: <KurseLernende/>},
       ]

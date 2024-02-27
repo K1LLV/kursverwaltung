@@ -4,8 +4,10 @@ import axios from "axios";
 import styles from "./Kurse.module.css";
 import { useEffect, useState } from "react";
 import KursRow from "./KursRow";
+import { useNavigate } from "react-router-dom";
 
 const Kurse = props => {
+    const navigate = useNavigate();
     const [kurse, setKurse] = useState([]);
 
     useEffect(() => {
@@ -18,7 +20,7 @@ const Kurse = props => {
             });
     }, []);
 
-    const addHandler = () => {};
+    const addHandler = () => {navigate("/kurse/add")};
 
     const results = kurse.length > 0 
     ? kurse.map(x => <KursRow key={x.id_kurs} kurs={x}/>)
