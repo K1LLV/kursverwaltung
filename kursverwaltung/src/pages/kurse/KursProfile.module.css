@@ -1,7 +1,7 @@
 .page {
     display: flex;
     flex-direction: column;
-    align-items: center;   
+    align-items: center;
 }
 
 .profile {
@@ -11,6 +11,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 1vw 1vw;
 }
 
 .pageTitle {
@@ -21,4 +22,100 @@
 .title {
     font-size: 2vw;
     font-weight: bold;
+    width: 95%;
+}
+
+.info {
+    width: 10%;
+    margin-top: 1vw;
+    font-size: 1vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dates {
+    display: flex;
+    width: 30vw;
+    justify-content: space-between;
+}
+
+.dozentInfo {
+    margin-top: 1vw;
+}
+
+.inhaltContainer{
+    margin-top: 1vw;
+    font-size: 1vw;
+    width: 30vw;
+    max-width: 30vw;
+    flex-grow: 1;
+}
+
+.participants {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1vw 1vw;
+    background-color: rgb(58, 63, 58);
+    border-radius: 1vw;
+    margin-left: 2vw;
+    width: 95%;
+    height: auto;
+}
+
+.participantsResults {
+    margin-top: 1vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+    border-radius: 0.4vw;
+    width: 100%;
+    max-height: 25vw;
+    margin-bottom: 1vw;
+}
+
+.message {
+    font-size: 1.5vw;
+    font-weight: bold;
+}
+
+.descRow {
+    background-color: #454545;
+    border-radius: 12px;
+    border-color: #242424;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 1vw;
+    height: auto;
+    width: 95%;
+}
+
+.descA, .descB, .descC, .descD, .descE {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.descA{
+    width: 100%;
+    padding: 1vw 1vw;
+}
+
+.descB{
+    width: 80%;
+}
+
+.descC{
+    width: 61%;
+}
+
+.descD{
+    width: 70%;
+}
+
+.descE {
+    width: 60%;
 }

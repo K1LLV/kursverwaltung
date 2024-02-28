@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import Row from "../../../components/Row";
+import NoteForm from "../../../components/NoteForm";
 import styles from './KurseRow.module.css';
 import axios from "axios";
 
@@ -29,7 +30,7 @@ const KurseRow = props => {
     const handleDelete = () => {
         axios.delete(`https://alex.undefiniert.ch/kurse_lernende/${props.kursLernende.id_kurs_lernende}`)
             .then(() => {
-                props.onUpdate();
+                setEditNote(false);
             })
             .catch(error => {
                 console.log(error);
@@ -37,21 +38,9 @@ const KurseRow = props => {
     };
 
     const noteView = !editNote 
-    ? props.kursLernende.note
-    : <form onSubmit={handleSubmit}>
-        <input
-        className={styles.note}
-        name="note"
-        type="number"
-        min="1"
-        max="6"
-        step="0.1"
-        defaultValue={props.kursLernende.note}/>
-        <div className={styles.buttons}>
-            <button type="submit">Submit</button>
-            <button onClick={handelCancelEdit}>Cancel</button>
-        </div>
-    </form>
+    ? props.kursLernende.note != 0 ? props.kursLernende.note : "Keine Note"
+    : <NoteForm note={props.kursLernende.note} onSubmit={handleSubmit} onCancelEdit={handelCancelEdit} styles={styles}/> 
+
         
     return(
         <Row

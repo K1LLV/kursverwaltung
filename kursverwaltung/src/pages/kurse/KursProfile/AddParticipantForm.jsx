@@ -1,23 +1,21 @@
 import { useState } from 'react';
-import styles from './AddKursNoteForm.module.css';
+import styles from './AddParticipantForm.module.css';
 import axios from 'axios';
 
-const AddKursNoteForm = props => {
+const AddParticipantForm = props => {
 
     const [formData, setFormData] = useState(
         {
-            fk_id_kurs: props.kurse[0].id_kurs,
-            fk_id_lernende: props.id_lernende,
-            note: 1
+            fk_id_kurs: props.kurs,
+            fk_id_lernende: props.lernende[0].id_lernende,
+            note: 0
         }
     );
-
-    console.log(props.kurse);
-
-    const kurseOptions = props.kurse
-    ? props.kurse.map(x => 
-        <option key={x.id_kurs} value={x.id_kurs}>
-            {x.kursnummer}
+    
+    const lernendeOptions = props.lernende
+    ? props.lernende.map(x => 
+        <option key={x.id_lernende} value={x.id_lernende}>
+            {`${x.vorname} ${x.nachname}`}
         </option>)
     : [];
 
@@ -49,25 +47,12 @@ const AddKursNoteForm = props => {
     }
 
     return (
-        <form className={styles.kurseForm} onSubmit={handleSubmit}>
-            Kurs:
+        <form className={styles.participantForm} onSubmit={handleSubmit}>
+            Lernende:
             <div>
-                <select className={styles.select} name="fk_id_kurs" onChange={handleChange}>
-                    {kurseOptions}
+                <select className={styles.select} name="fk_id_lernende" onChange={handleChange}>
+                    {lernendeOptions}
                 </select>
-            </div>
-
-            Note:    
-            <div>
-                <input
-                    className={styles.note}
-                    name="note"
-                    type="number"
-                    min="1"
-                    max="6"
-                    step="0.1"
-                    defaultValue={formData.note}
-                    onChange={handleChange}/>
             </div>
             
             <div className={styles.buttons}>
@@ -78,4 +63,4 @@ const AddKursNoteForm = props => {
     );
 };
 
-export default AddKursNoteForm;
+export default AddParticipantForm;
