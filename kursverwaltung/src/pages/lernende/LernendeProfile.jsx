@@ -22,10 +22,10 @@ const LernendeProfile = porps => {
     const [kurseWithoutLernende, setKurseWithoutLernende] = useState([]);
     const [lehrbetriebe, setLehrbetriebe] = useState([]);
     const [lehrbetriebLernende, setLehrbetriebLernende] = useState([]);
-    const [lehrbetriebLernendeWithLernende, setLehrbetriebLernendeWithLernende] = useState([]);
     const [isUpdate, setIsUpdate] = useState(false);
     const [isAddKursNote, setIsAddKursNote] = useState(false);
     const [isAddLehrbetrieb, setIsAddLehrbetrieb] = useState(false);
+    let lehrbetriebLernendeWithLernende = [];
 
     useEffect(() => {
         axios.get(`https://alex.undefiniert.ch/lernende/${params.id}`)
@@ -82,13 +82,8 @@ const LernendeProfile = porps => {
         }
     }, [kurseLernende, kurse, lernende]);
 
-    useEffect(() => {
-        if (lernende && lehrbetriebe && lehrbetriebLernende) {
-            setLehrbetriebLernendeWithLernende(lehrbetriebLernende.filter(x => x.fk_id_lernende === lernende.id_lernende));
-        }
-    }, [lernende, lehrbetriebe, lehrbetriebLernende]);
 
-    if (!lernende || !kurse) {
+    if (!lernende || !kurse || !kurseLernende) {
         return <></>;
     }
 
@@ -102,6 +97,7 @@ const LernendeProfile = porps => {
 
     const handleCancelAddLehrbetrieb = () => setIsAddLehrbetrieb(false);
 
+    lehrbetriebLernendeWithLernende = lehrbetriebLernende.filter(x => x.fk_id_lernende === lernende.id_lernende);
 
     const addKursNote = kurse.length === 0
     ? <p>Es gibt keine Kurse zur Zeit!</p>
@@ -160,10 +156,9 @@ const LernendeProfile = porps => {
                                 <div className={styles.lehrbetriebeResults}>
                                     {
                                         lehrbetriebLernendeWithLernende.map(x =>{
-                                            const lehrbetrieb = lehrbetriebe.find(y => x.fk_id_lehrbetrieb == y.id_lehrbetrieb);
                                             return <LehrbetriebLernendeRow
                                                     key={x.id_lehrbetrieb_lernende}
-                                                    lehrbetrieb={lehrbetrieb}
+                                                    lehrbetrieb={lehrbetriebe.find(y => x.fk_id_lehrbetrieb == y.id_lehrbetrieb)}
                                                     lehrbetriebLernende={x}
                                                     onUpdate={handleUpdate}/>;
                                         })

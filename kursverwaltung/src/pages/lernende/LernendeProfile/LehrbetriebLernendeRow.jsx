@@ -4,9 +4,10 @@ import styles from "./LehrbetriebLernendeRow.module.css";
 import editStyles from "./LehrbetriebLernendeRowEdit.module.css";
 import axios from "axios";
 import Date from "../../../components/Date";
+import { useNavigate } from "react-router-dom";
 
 const LehrbetriebLernendeRow = props => {
-
+    const navigate = useNavigate();
     const [isEdit, setIsEdit] = useState(false);
     const [formData, setFormData] = useState(
         {
@@ -45,6 +46,10 @@ const LehrbetriebLernendeRow = props => {
             return ({...x, [e.target.name]: e.target.value})
         });
     };
+
+    const handleClick = () => {
+        navigate(`/lehrbetriebe/${props.lehrbetrieb.id_lehrbetrieb}`);
+    }
 
     const editForm = 
         <form onSubmit={handleSubmit}>
@@ -86,7 +91,8 @@ const LehrbetriebLernendeRow = props => {
         b={editForm}
         styles={editStyles}
         onEdit={handleEdit}
-        onDelete={handleDelete}/>
+        onDelete={handleDelete}
+        onClick={handleClick}/>
     :   <Row
         a={props.lehrbetrieb.firma}
         b={props.lehrbetriebLernende.beruf}
@@ -94,7 +100,8 @@ const LehrbetriebLernendeRow = props => {
         d={<Date date={props.lehrbetriebLernende.ende}/>}
         styles={styles}
         onEdit={handleEdit}
-        onDelete={handleDelete}/>;
+        onDelete={handleDelete}
+        onClick={handleClick}/>;
 
     return(row);
 };

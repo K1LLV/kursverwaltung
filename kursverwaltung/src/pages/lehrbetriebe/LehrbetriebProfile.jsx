@@ -1,63 +1,53 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./LehrbetriebProfile.module.css";
 import axios from "axios";
+import LehrbetriebLernendeRow from "./lehrbetriebProfile/LehrbetriebLernendeRow";
+import DescriptionRow from "../../components/DescriptionRow";
 
-const LehrbetriebProfile = props => {
+const LehrbetriebProfile = () => {
     const params = useParams();
-
     const [lehrbetrieb, setLehrbetrieb] = useState(null);
     const [lehrbetriebeLernende, setLehrbetriebLernende] = useState([]);
-    const [lehrbetriebeLernendeIncludingThis, setLehrbetriebLernendeIncludingThis] = useState([]);
     const [lernende, setLernende] = useState([]);
-    const [lernendeOfBetrieb, setLernendeOfBetrieb] = useState([]);
 
     useEffect(() => {
-        axios.get(`https://alex.undefiniert.ch/lehrbetriebe/${params.id}`)
-            .then(response => {
-                setLehrbetrieb(response.data.data[0]);
-            })
-            .catch(error => {
+        const fetchLehrbetriebData = async () => {
+            try {
+                const [lehrbetriebResponse, lernendeResponse, lehrbetriebLernendeResponse] = await Promise.all([
+                    axios.get(`https://alex.undefiniert.ch/lehrbetriebe/${params.id}`),
+                    axios.get(`https://alex.undefiniert.ch/lernende`),
+                    axios.get(`https://alex.undefiniert.ch/lehrbetrieb_lernende`)
+                ]);
+
+                setLehrbetrieb(lehrbetriebResponse.data.data[0]);
+                setLernende(lernendeResponse.data.data);
+                setLehrbetriebLernende(lehrbetriebLernendeResponse.data.data);
+            } catch (error) {
                 console.log(error);
-            });
+            }
+        };
 
-        axios.get(`https://alex.undefiniert.ch/lernende`)
-            .then(response => {
-                setLernende(response.data.data);
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        fetchLehrbetriebData();
+    }, [params.id]);
 
-        axios.get(`https://alex.undefiniert.ch/lehrbetrieb_lernende`)
-            .then(response => {
-                setLehrbetriebLernende(response.data.data);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }, []);
-
-    useEffect(() => {
-        if(lehrbetrieb)
-        {
-            setLehrbetriebLernendeIncludingThis(lehrbetriebeLernende.filter(x => x.fk_id_lehrbetrieb == lehrbetrieb.id_lehrbetrieb));
-        }
-    }, [lehrbetrieb, lernende, lehrbetriebeLernende]);
-
-
-    useEffect(() => {
-        setLernendeOfBetrieb(lehrbetriebeLernendeIncludingThis.filter(x => x.ende == null).map(x => 
-            lernende.find(y => y.id_lernende === x.fk_id_lernende)));
-    }, []);
-
-    if(!lehrbetrieb) {
-        return <></>;
+    if (!lehrbetrieb || !lernende || !lehrbetriebeLernende) {
+        return null;
     }
 
-    console.log(lehrbetriebeLernendeIncludingThis);
+    const filteredLernende = lehrbetriebeLernende.filter(x =>
+        x.fk_id_lehrbetrieb === lehrbetrieb.id_lehrbetrieb && (!x.ende || x.ende === "0000-00-00")
+    );
 
-    return(
+    const actualLernende = filteredLernende.map(x => (
+        <LehrbetriebLernendeRow
+            key={x.id_lehrbetrieb_lernende}
+            lernende={lernende.find(y => y.id_lernende === x.fk_id_lernende)}
+            lehrbetriebLernende={x}
+        />
+    ));
+
+    return (
         <div className={styles.page}>
             <div className={styles.profile}>
                 <div className={styles.header}>
@@ -65,15 +55,16 @@ const LehrbetriebProfile = props => {
                 </div>
                 <div className={styles.a}>
                     <div className={styles.addresse}>
-                        <div className={styles.addresseTitle}>Addresse</div>
+                        <div className={styles.addresseTitle}>Adresse</div>
                         <div className={styles.strasse}>{lehrbetrieb.strasse}</div>
                         <div className={styles.plzOrt}>{lehrbetrieb.plz}, {lehrbetrieb.ort}</div>
                     </div>
 
                     <div className={styles.lernende}>
                         <div className={styles.lernendeTitle}>Aktuelle Lernende</div>
+                        <DescriptionRow a="Lernende" b="Beruf" c="Startdatum" styles={styles}/>
                         <div className={styles.lernendeResults}>
-
+                            {actualLernende.length > 0 ? actualLernende : <p>No current learners.</p>}
                         </div>
                     </div>
                 </div>
