@@ -8,6 +8,7 @@ import DescriptionRow from "../../components/DescriptionRow";
 import AddButton from "../../UI/AddButton";
 import AddKursNoteForm from "./LernendeProfile/AddKursNoteForm";
 import LehrbetriebLernendeRow from "./LernendeProfile/LehrbetriebLernendeRow";
+import AddLehrbetriebForm from "./LernendeProfile/AddLehrbetriebForm";
 
 const LernendeProfile = porps => {
     const navigate = useNavigate();
@@ -21,11 +22,10 @@ const LernendeProfile = porps => {
     const [kurseWithoutLernende, setKurseWithoutLernende] = useState([]);
     const [lehrbetriebe, setLehrbetriebe] = useState([]);
     const [lehrbetriebLernende, setLehrbetriebLernende] = useState([]);
-    const [lehrbetriebeOfLernende, setLehrbetriebeOfLernende] = useState([]);
     const [lehrbetriebLernendeWithLernende, setLehrbetriebLernendeWithLernende] = useState([]);
-    const [lehrbetriebeWithoutLernende, setLehrbetriebeWithoutLernende] = useState([]);
     const [isUpdate, setIsUpdate] = useState(false);
     const [isAddKursNote, setIsAddKursNote] = useState(false);
+    const [isAddLehrbetrieb, setIsAddLehrbetrieb] = useState(false);
 
     useEffect(() => {
         axios.get(`https://alex.undefiniert.ch/lernende/${params.id}`)
@@ -88,29 +88,20 @@ const LernendeProfile = porps => {
         }
     }, [lernende, lehrbetriebe, lehrbetriebLernende]);
 
-    useEffect(() => {  
-        if (lernende && lehrbetriebe) { 
-            setLehrbetriebeWithoutLernende(lehrbetriebe.filter(x =>
-                lehrbetriebLernendeWithLernende.every(y => y.fk_id_lehrbetrieb !== x.id_lehrbetrieb)
-            ));
-            setLehrbetriebeOfLernende(lehrbetriebLernendeWithLernende.map(x => 
-                lehrbetriebe.find(y => y.id_lehrbetrieb === x.fk_id_lehrbetrieb)).filter(x => x !== undefined)
-            );
-        }
-    }, [lernende, lehrbetriebe, lehrbetriebLernendeWithLernende]);
-
     if (!lernende || !kurse) {
         return <></>;
     }
 
-    const handleUpdate = () => setIsUpdate(x => {
-        console.log("Update!");
-        return !x;
-    });
+    const handleUpdate = () => setIsUpdate(x => !x);
 
     const handleAddKursNote = () => setIsAddKursNote(true);
 
     const handleCancelAddKursNote = () => setIsAddKursNote(false);
+
+    const handleAddLehrbetrieb = () => setIsAddLehrbetrieb(true);
+
+    const handleCancelAddLehrbetrieb = () => setIsAddLehrbetrieb(false);
+
 
     const addKursNote = kurse.length === 0
     ? <p>Es gibt keine Kurse zur Zeit!</p>
@@ -162,20 +153,29 @@ const LernendeProfile = porps => {
                 <div className={styles.b}>
                     <div className={styles.lehrbetriebe}>
                         <div className={styles.title}>Lehrbetriebe</div>
-                        <DescriptionRow a="Firma" b="Beruf" c="Star" d="Ende" styles={styles}/>
-                        <div className={styles.lehrbetriebeResults}>
-                            {
-                                lehrbetriebeOfLernende.length > 0
-                                    ? lehrbetriebeOfLernende.map(x =>{
-                                        const lehrbetriebLernende = lehrbetriebLernendeWithLernende.find(y => y.fk_id_lehrbetrieb == x.id_lehrbetrieb);
-                                        return <LehrbetriebLernendeRow
-                                                key={lehrbetriebLernende.id_lehrbetrieb_lernende}
-                                                lehrbetrieb={x}
-                                                lehrbetriebLernende={lehrbetriebLernende}/>;
-                                    })
-                                    : "In keinem Lehrbetrieb!"
-                            }
-                        </div>
+                        {
+                            lehrbetriebLernendeWithLernende.length > 0
+                            ? <>
+                                <DescriptionRow a="Firma" b="Beruf" c="Start" d="Ende" styles={styles}/>
+                                <div className={styles.lehrbetriebeResults}>
+                                    {
+                                        lehrbetriebLernendeWithLernende.map(x =>{
+                                            const lehrbetrieb = lehrbetriebe.find(y => x.fk_id_lehrbetrieb == y.id_lehrbetrieb);
+                                            return <LehrbetriebLernendeRow
+                                                    key={x.id_lehrbetrieb_lernende}
+                                                    lehrbetrieb={lehrbetrieb}
+                                                    lehrbetriebLernende={x}
+                                                    onUpdate={handleUpdate}/>;
+                                        })
+                                    }
+                                </div>
+                            </>
+                            : <p>In keinem Lehrbetrieb!</p>
+                        }
+
+                        {isAddLehrbetrieb && <AddLehrbetriebForm lehrbetriebe={lehrbetriebe} id_lernende={lernende.id_lernende} onCancel={handleCancelAddLehrbetrieb} onUpdate={handleUpdate}/>}
+                        
+                        <AddButton onAdd={handleAddLehrbetrieb}/>
                     </div>
                 </div>
             </div>

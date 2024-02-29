@@ -30,7 +30,7 @@ const KurseRow = props => {
     const handleDelete = () => {
         axios.delete(`https://alex.undefiniert.ch/kurse_lernende/${props.kursLernende.id_kurs_lernende}`)
             .then(() => {
-                setEditNote(false);
+                props.onUpdate();
             })
             .catch(error => {
                 console.log(error);

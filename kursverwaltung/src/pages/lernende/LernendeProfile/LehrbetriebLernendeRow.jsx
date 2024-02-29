@@ -3,12 +3,14 @@ import Row from "../../../components/Row";
 import styles from "./LehrbetriebLernendeRow.module.css";
 import editStyles from "./LehrbetriebLernendeRowEdit.module.css";
 import axios from "axios";
+import Date from "../../../components/Date";
 
 const LehrbetriebLernendeRow = props => {
 
     const [isEdit, setIsEdit] = useState(false);
     const [formData, setFormData] = useState(
         {
+            fk_id_lernende: props.id_lernende,
             beruf: props.lehrbetriebLernende.beruf,
             start: props.lehrbetriebLernende.start,
             ende: props.lehrbetriebLernende.ende,
@@ -16,12 +18,22 @@ const LehrbetriebLernendeRow = props => {
     );
 
     const handleEdit = () => setIsEdit(x => !x);
-    const handleDelete = () => {};
+    const handleDelete = () => {
+        axios.delete(`https://alex.undefiniert.ch/lehrbetrieb_lernende/${props.lehrbetriebLernende.id_lehrbetrieb_lernende}`)
+            .then(() => {
+                props.onUpdate();
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.put(`https://alex.undefiniert.ch/lehrbetrieb_lernende/${props.lehrbetriebLernende.id_lehrbetrieb_lernende}`, formData)
             .then(() => {
                 setIsEdit(false);
+                props.onUpdate();
             })
             .catch(error => {
                 console.log(error);
@@ -77,9 +89,9 @@ const LehrbetriebLernendeRow = props => {
         onDelete={handleDelete}/>
     :   <Row
         a={props.lehrbetrieb.firma}
-        b={formData.beruf}
-        c={formData.start}
-        d={formData.ende}
+        b={props.lehrbetriebLernende.beruf}
+        c={<Date date={props.lehrbetriebLernende.start}/>}
+        d={<Date date={props.lehrbetriebLernende.ende}/>}
         styles={styles}
         onEdit={handleEdit}
         onDelete={handleDelete}/>;

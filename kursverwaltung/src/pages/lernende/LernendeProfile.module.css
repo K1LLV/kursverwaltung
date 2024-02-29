@@ -54,6 +54,7 @@
 .title {
     font-size: 2vw;
     font-weight: bold;
+    width: 100%;
 }
 
 .email, .emailPrivat, .handy, .title {
@@ -136,6 +137,7 @@
 .lehrbetriebe {
     display: flex;
     flex-direction: column;
+    align-items: center;
     padding: 1vw 1vw;
     background-color: rgb(58, 63, 58);
     border-radius: 1vw;
@@ -147,6 +149,7 @@
 .lehrbetriebeResults {
     display: flex;
     flex-direction: column;
+    align-items: center;
     overflow-y: scroll;
     border-radius: 0.4vw;
     width: 100%;

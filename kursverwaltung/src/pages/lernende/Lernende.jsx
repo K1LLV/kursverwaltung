@@ -52,7 +52,7 @@ const Lernende = props => {
     }, [shouldRender]);
 
     const getBetrieb = (lernendeId) => {
-        const found = lehrbetriebLernende ? lehrbetriebLernende.find(x => x.fk_id_lernende == lernendeId) : "";
+        const found = lehrbetriebLernende ? lehrbetriebLernende.find(x => x.fk_id_lernende == lernendeId && (x.ende == "0000-00-00" || !x.ende)) : "";
         if (found) {
             const betrieb = betriebe ? betriebe.find(x => x.id_lehrbetrieb == found.fk_id_lehrbetrieb) : "";
             if(betrieb) {
@@ -63,7 +63,7 @@ const Lernende = props => {
     };
 
     const getBeruf = (lernendeId) => {
-        const found = lehrbetriebLernende ? lehrbetriebLernende.find(x => x.fk_id_lernende == lernendeId) : "";
+        const found = lehrbetriebLernende ? lehrbetriebLernende.find(x => x.fk_id_lernende == lernendeId && (x.ende == "0000-00-00" || !x.ende)) : "";
         return found ? found.beruf : "";
     };
 

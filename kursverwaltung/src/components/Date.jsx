@@ -14,6 +14,10 @@ const Date = props => {
         "12": "Dezember",
     };
 
+    if(!props.date || props.date == "0000-00-00")
+        return "Kein Datum";
+            
+
     const [year, month, day] = props.date.split("-");
 
     return `${day}. ${months[month]} ${year}`
