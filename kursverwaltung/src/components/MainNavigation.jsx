@@ -7,6 +7,7 @@ const MainNavigation = props => {
             <div className={styles.nav}>
                 <NavLink to="/kurse">Kurse</NavLink>
                 <NavLink to='/lehrbetriebe'>Lehrbetriebe</NavLink>
+                <NavLink to='/dozenten'>Dozenten</NavLink>
                 <NavLink to='/lehrbetriebe/add'>Add Lehrbetrieb</NavLink>
                 <NavLink to='/lernende'>Lernende</NavLink>
             </div>

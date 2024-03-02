@@ -1,0 +1,25 @@
+.a, .b, .c, .d {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.a{
+    width: 100%;
+}
+
+.b{
+    width: 90%;
+}
+
+.c{
+    width: 60%;
+}
+
+.d {
+    width: 50%;
+}
+
+.e {
+    width: 30%;
+}
