@@ -18,8 +18,11 @@ const LehrbetriebLernendeRow = props => {
         }
     );
 
-    const handleEdit = () => setIsEdit(x => !x);
-    const handleDelete = () => {
+    const handleEdit = (e) => {
+        e.stopPropagation();
+        setIsEdit(x => !x)
+    };
+    const handleDelete = (e) => {
         axios.delete(`https://alex.undefiniert.ch/lehrbetrieb_lernende/${props.lehrbetriebLernende.id_lehrbetrieb_lernende}`)
             .then(() => {
                 props.onUpdate();

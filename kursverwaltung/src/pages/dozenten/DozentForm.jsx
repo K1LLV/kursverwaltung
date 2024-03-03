@@ -1,3 +1,5 @@
+import styles from "./DozentForm.module.css";
+
 const DozentForm = props => {
     const handleInputChanged = (e) => props.onInputChanged(e); 
     
@@ -10,7 +12,7 @@ const DozentForm = props => {
                         className={styles.input}
                         type="text"
                         name="vorname"
-                        value={props.formData.vorname}
+                        defaultValue={props.formData.vorname}
                         onChange={handleInputChanged}/>
                 </label>
 
@@ -21,7 +23,7 @@ const DozentForm = props => {
                         className={styles.input}
                         type="text"
                         name="nachname"
-                        value={props.formData.nachname}
+                        defaultValue={props.formData.nachname}
                         onChange={handleInputChanged}/>
                 </label>
 
@@ -32,7 +34,7 @@ const DozentForm = props => {
                         className={styles.input}
                         type="text"
                         name="strasse"
-                        value={props.formData.strasse}
+                        defaultValue={props.formData.strasse}
                         onChange={handleInputChanged}/>
                 </label>
 
@@ -43,7 +45,7 @@ const DozentForm = props => {
                         className={styles.input}
                         type="text"
                         name="plz"
-                        value={props.formData.plz}
+                        defaultValue={props.formData.plz}
                         onChange={handleInputChanged}/>
                 </label>
 
@@ -54,7 +56,7 @@ const DozentForm = props => {
                         className={styles.input}
                         type="text"
                         name="ort"
-                        value={props.formData.ort}
+                        defaultValue={props.formData.ort}
                         onChange={handleInputChanged}/>
                 </label>
 
@@ -74,7 +76,7 @@ const DozentForm = props => {
                         className={styles.input}
                         type="text"
                         name="geschlecht"
-                        value={props.formData.geschlecht}
+                        defaultValue={props.formData.geschlecht}
                         onChange={handleInputChanged}/>
                 </label>
 
@@ -85,7 +87,7 @@ const DozentForm = props => {
                         className={styles.input}
                         type="text"
                         name="telefon"
-                        value={props.formData.telefon}
+                        defaultValue={props.formData.telefon}
                         onChange={handleInputChanged}/>
                 </label>
 
@@ -96,7 +98,7 @@ const DozentForm = props => {
                         className={styles.input}
                         type="text"
                         name="handy"
-                        value={props.formData.handy}
+                        defaultValue={props.formData.handy}
                         onChange={handleInputChanged}/>
                 </label>
 
@@ -107,7 +109,7 @@ const DozentForm = props => {
                         className={styles.input}
                         type="text"
                         name="email"
-                        value={props.formData.email}
+                        defaultValue={props.formData.email}
                         onChange={handleInputChanged}/>
                 </label>
 
@@ -118,7 +120,7 @@ const DozentForm = props => {
                         className={styles.input}
                         type="date"
                         name="geburtsdatum"
-                        value={props.formData.geburtsdatum}
+                        defaultValue={props.formData.geburtsdatum}
                         onChange={handleInputChanged}/>
                 </label>
 

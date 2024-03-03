@@ -14,12 +14,15 @@ import LehrbetriebLernende from './pages/lehrbetriebLernende/LehrbetriebLernende
 import EditLehrbetrieb from './pages/lehrbetriebe/EditLehrbetrieb';
 import Laender from './pages/laender/Laender';
 import Dozenten from './pages/dozenten/Dozenten';
+import EditDozent from './pages/dozenten/EditDozent';
 import Kurse from './pages/kurse/Kurse';
 import AddKurs from './pages/kurse/AddKurs';
 import EditKurs from './pages/kurse/EditKurs';
 import KurseLernende from './pages/kurseLernende/KurseLernende';
 import ErrorPage from './pages/Error';
 import KursProfile from './pages/kurse/KursProfile';
+import AddDozent from './pages/dozenten/AddDozent';
+import DozentProfil from './pages/dozenten/DozentProfil';
 
 function App() {
   const router = createBrowserRouter([
@@ -40,6 +43,9 @@ function App() {
         { path: 'lehrbetrieb_lernende', element: <LehrbetriebLernende/>},
         { path: 'laender', element: <Laender/>},
         { path: 'dozenten', element: <Dozenten/>},
+        { path: 'dozenten/:id', element: <DozentProfil/>},
+        { path: 'dozenten/add', element: <AddDozent/>},
+        { path: 'dozenten/:id/edit', element: <EditDozent/>},
         { path: 'kurse', element: <Kurse/>},
         { path: 'kurse/add', element: <AddKurs/>},
         { path: 'kurse/:id', element: <KursProfile/>},

@@ -1,14 +1,12 @@
 const DescriptionRow = props => {
-    const { styles } = props; // Destructure styles from props
+    const { styles } = props;
 
-    if (!styles) {
-        // Handle the case when styles is not defined
-        console.error("styles prop is not defined in DescriptionRow");
-        return null; // Or provide a default styling or return something else
+    const handleClick = () => {
+        props.onClick();
     }
 
     return (
-        <div className={styles.descRow}>
+        <div className={styles.descRow} onClick={handleClick}>
             <div className={styles.descA}>
                 {props.a}
                 <div className={styles.descB}>

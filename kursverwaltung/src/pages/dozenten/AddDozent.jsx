@@ -1,33 +1,31 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import styles from './AddDozent.module.css'
+import axios from 'axios';
 import DozentForm from "./DozentForm";
-import axios from "axios";
-import styles from "./EditDozent.module.css"
-import { useNavigate, useParams } from "react-router-dom";
 
-const EditDozent = props => {
-    const params = useParams();
+const AddDozent = () => {
     const navigate = useNavigate();
 
-    const [formData, setFormData] = useState({
-        vorname: '',
-        nachname: '',
-        plz: '',
-        strasse: '',
-        ort: '',
-        fk_id_land: 0,
-        geschlecht: '',
-        telefon: '',
-        handy: '',
-        email: '',
-        geburtsdatum: '',
-    });
-    const [laender, setLaender] = useState([]);
+    const [formData, setFormData] = useState(
+        {
+            vorname: '',
+            nachname: '',
+            plz: '',
+            strasse: '',
+            ort: '',
+            fk_id_land: 0,
+            geschlecht: '',
+            telefon: '',
+            handy: '',
+            email: '',
+            geburtsdatum: '',
+        }
+    );
+
+    const [laender, setLaender] = useState(null);
 
     useEffect(() => {
-        axios.get(`https://alex.undefiniert.ch/dozenten/${params.id}`)
-            .then(r => setFormData(r.data.data[0]))
-            .catch(e => console.log(e));
-
         axios.get('https://alex.undefiniert.ch/laender')
             .then(response => {
                 setLaender(response.data.data);
@@ -39,23 +37,21 @@ const EditDozent = props => {
 
     const handleChange = (e) => {
         const {name, value} = e.target;
-        setFormData((prevFormData) => {
-            return {...prevFormData, [name]: value};
+        setFormData((x) => {
+            return ({...x, [name]: value});
         });
-    };
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.put(`https://alex.undefiniert.ch/dozenten/${params.id}`, formData)
+        axios.post('https://alex.undefiniert.ch/dozenten', formData)
             .then(response => {
-                console.log(formData);
                 console.log(response.data);
                 navigate('/dozenten');
             })
             .catch(error => {
                 console.log(error);
             });
-
         console.log('Form submitted:', formData);
     };
 
@@ -66,18 +62,16 @@ const EditDozent = props => {
         </option>)
     : [];
 
-    console.log(formData);
-
     return(
-        <div className={styles.editDozent}>
-            <div className={styles.title}>Edit Dozent</div>
+        <div className={styles.addLernende}>
+            <div className={styles.title}>Add Dozent</div>
             <DozentForm 
                 formData={formData}
                 onInputChanged={handleChange}
                 onSubmit={handleSubmit}
                 laenderOptions={laenderOptions}/>
         </div>
-    );
-}
+    );    
+};
 
-export default EditDozent;
+export default AddDozent;

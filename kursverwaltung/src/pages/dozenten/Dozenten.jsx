@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DescriptionRow from "../../components/DescriptionRow";
 import AddButton from "../../UI/AddButton";
@@ -6,8 +7,10 @@ import styles from "./Dozenten.module.css"
 import DozentRow from "./DozentRow";
 
 const Dozenten = props => {
+    const navigate = useNavigate();
 
     const [dozenten, setDozenten] = useState([]);
+    const [isUpdate, setIsUpdate] = useState(false);
 
     useEffect(() => {
         axios.get("https://alex.undefiniert.ch/dozenten")
@@ -18,14 +21,16 @@ const Dozenten = props => {
             .catch(e => {
                 console.log(e);
             });
-    }, []);
+    }, [isUpdate]);
 
     const handleAdd = () => {
-
+        navigate("/dozenten/add");
     };
 
+    const handleUpdate = () => setIsUpdate(x => !x);
+
     const results = dozenten.length > 0 
-    ? dozenten.map(x => <DozentRow key={x.id_dozent} dozent={x}/>)
+    ? dozenten.map(x => <DozentRow key={x.id_dozent} dozent={x} onUpdate={handleUpdate}/>)
     : <p>Es gibt keine Dozenten zur Zeit!</p>
 
     return(

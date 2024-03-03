@@ -8,7 +8,8 @@ const LehrbetriebRow = props => {
 
     const navigate = useNavigate();
 
-    const deleteHandler = () => {
+    const deleteHandler = (e) => {
+        e.stopPropagation();
         axios.delete(`https://alex.undefiniert.ch/lehrbetriebe/${props.id}`)
             .then(response => {
                 console.log(response.data.data);
@@ -19,7 +20,8 @@ const LehrbetriebRow = props => {
             });
     }
 
-    const editHandler = () => {
+    const editHandler = (e) => {
+        e.stopPropagation();
         navigate(`${props.id}/edit`);
     };
 

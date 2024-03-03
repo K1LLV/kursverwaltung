@@ -7,7 +7,8 @@ const DozentRow = props => {
 
     const navigate = useNavigate();
 
-    const handleDelete = () => {
+    const handleDelete = (e) => {
+        e.stopPropagation();
         axios.delete(`https://alex.undefiniert.ch/dozenten/${props.dozent.id_dozent}`)
             .then(() => {
                 props.onUpdate();
@@ -15,8 +16,13 @@ const DozentRow = props => {
             .catch(e => console.log(e));
     };
 
-    const handleEdit = () => {
+    const handleEdit = (e) => {
+        e.stopPropagation();
         navigate(`/dozenten/${props.dozent.id_dozent}/edit`);
+    };
+
+    const handleClick = () => {
+        navigate(`/dozenten/${props.dozent.id_dozent}`);
     };
 
     return <Row 
@@ -25,6 +31,7 @@ const DozentRow = props => {
                 c={props.dozent.email}
                 onDelete={handleDelete}
                 onEdit={handleEdit}
+                onClick={handleClick}
                 styles={styles}
                 />
 };
