@@ -55,8 +55,12 @@ const LehrbetriebLernendeRow = props => {
         navigate(`/lehrbetriebe/${props.lehrbetrieb.id_lehrbetrieb}`);
     }
 
+    const stopPropagation = e => {
+        e.stopPropagation();
+    }
+
     const editForm = 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} onClick={stopPropagation}>
             <div className={styles.editForm}>
                 <div className={styles.berufInput}>
                     <input
