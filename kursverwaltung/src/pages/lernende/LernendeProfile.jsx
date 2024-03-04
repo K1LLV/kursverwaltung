@@ -17,15 +17,11 @@ const LernendeProfile = porps => {
     const [lernende, setLernende] = useState(null);
     const [kurse, setKurse] = useState(null);
     const [kurseLernende, setKurseLernende] = useState(null);
-    const [kurseOfLernende, setKurseOfLernende] = useState([]);
-    const [kurseLernendeWithLernende, setKurseLernendeWithLernende] = useState([]);
-    const [kurseWithoutLernende, setKurseWithoutLernende] = useState([]);
     const [lehrbetriebe, setLehrbetriebe] = useState([]);
     const [lehrbetriebLernende, setLehrbetriebLernende] = useState([]);
     const [isUpdate, setIsUpdate] = useState(false);
     const [isAddKursNote, setIsAddKursNote] = useState(false);
     const [isAddLehrbetrieb, setIsAddLehrbetrieb] = useState(false);
-    let lehrbetriebLernendeWithLernende = [];
 
     useEffect(() => {
         axios.get(`https://alex.undefiniert.ch/lernende/${params.id}`)
@@ -70,20 +66,7 @@ const LernendeProfile = porps => {
 
     }, [isUpdate]);
 
-    useEffect(() => {
-        if (lernende && kurseLernende && kurse) {
-            const updatedKurseLernendeWithLernende = kurseLernende.filter(x => x.fk_id_lernende === lernende.id_lernende);
-            const updatedKurseOfLernende = updatedKurseLernendeWithLernende.map(kursLernende =>
-                kurse.find(kurs => kurs.id_kurs === kursLernende.fk_id_kurs)).filter(kurs => kurs !== undefined);
-            const updatedKurseWithoutLernende = kurse.filter(x => updatedKurseLernendeWithLernende.every(y => y.fk_id_kurs !== x.id_kurs));
-            setKurseLernendeWithLernende(updatedKurseLernendeWithLernende);
-            setKurseOfLernende(updatedKurseOfLernende);
-            setKurseWithoutLernende(updatedKurseWithoutLernende);
-        }
-    }, [kurseLernende, kurse, lernende]);
-
-
-    if (!lernende || !kurse || !kurseLernende) {
+    if (!lernende || !kurse || !kurseLernende || !lehrbetriebe) {
         return <></>;
     }
 
@@ -97,7 +80,11 @@ const LernendeProfile = porps => {
 
     const handleCancelAddLehrbetrieb = () => setIsAddLehrbetrieb(false);
 
-    lehrbetriebLernendeWithLernende = lehrbetriebLernende.filter(x => x.fk_id_lernende === lernende.id_lernende);
+    const kurseLernendeWithLernende = kurseLernende.filter(x => x.fk_id_lernende === lernende.id_lernende);
+    const kurseOfLernende = kurseLernendeWithLernende.map(kursLernende =>
+        kurse.find(kurs => kurs.id_kurs === kursLernende.fk_id_kurs)).filter(kurs => kurs !== undefined);
+    const kurseWithoutLernende = kurse.filter(x => kurseLernendeWithLernende.every(y => y.fk_id_kurs !== x.id_kurs));
+    const lehrbetriebLernendeWithLernende = lehrbetriebLernende.filter(x => x.fk_id_lernende === lernende.id_lernende);
 
     const addKursNote = kurse.length === 0
     ? <p>Es gibt keine Kurse zur Zeit!</p>
