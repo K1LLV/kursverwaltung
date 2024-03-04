@@ -1,25 +1,42 @@
-.a, .b, .c, .d {
+.descRow {
+    background-color: #454545;
+    border-radius: 12px;
+    border-color: #242424;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 1vw;
+    height: auto;
+    width: 95%;
+}
+
+.descRow:hover {
+    background-color: #666;
+    cursor: pointer;
+}
+
+.descA, .descB, .descC, .descD, .descE {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.a{
+.descA{
     width: 100%;
+    padding: 1vw 1vw;
 }
 
-.b{
+.descB{
     width: 80%;
 }
 
-.c{
-    width: 60%;
+.descC{
+    width: 61%;
 }
 
-.d {
+.descD{
     width: 70%;
 }
 
-.e {
-    width: 40%;
+.descE {
+    width: 60%;
 }

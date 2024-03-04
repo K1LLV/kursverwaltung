@@ -3,17 +3,24 @@ import Row from "../../../components/Row";
 import NoteForm from "../../../components/NoteForm";
 import styles from './KurseRow.module.css';
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const KurseRow = props => {
+    const navigate = useNavigate();
+
     const [editNote, setEditNote] = useState(false); 
 
-    const handleEdit = () => {
+    const handleEdit = (e) => {
+        e.stopPropagation();
         setEditNote(true);
     };
 
-    const handelCancelEdit = () => setEditNote(false);
-
+    const handelCancelEdit = (e) => {
+        e.stopPropagation();
+        setEditNote(false);
+    }
     const handleSubmit = (e) => {
+        e.stopPropagation();
         e.preventDefault();
         console.log(e.target.note.value);
         axios.put(`https://alex.undefiniert.ch/kurse_lernende/${props.kursLernende.id_kurs_lernende}`,
@@ -27,7 +34,8 @@ const KurseRow = props => {
                 });
     };
 
-    const handleDelete = () => {
+    const handleDelete = (e) => {
+        e.stopPropagation();
         axios.delete(`https://alex.undefiniert.ch/kurse_lernende/${props.kursLernende.id_kurs_lernende}`)
             .then(() => {
                 props.onUpdate();
@@ -35,6 +43,10 @@ const KurseRow = props => {
             .catch(error => {
                 console.log(error);
             });
+    };
+
+    const handleClick = () => {
+        navigate(`/kurse/${props.kursLernende.fk_id_kurs}`);
     };
 
     const noteView = !editNote 
@@ -49,7 +61,8 @@ const KurseRow = props => {
             c={noteView}
             styles={styles}
             onEdit={handleEdit}
-            onDelete={handleDelete}/>
+            onDelete={handleDelete}
+            onClick={handleClick}/>
     );
 };
 

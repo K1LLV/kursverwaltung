@@ -1,5 +1,6 @@
 import styles from "./LehrbetriebLernendeRow.module.css";
 import Row from "../../../components/Row";
+import DescriptionRow from "../../../components/DescriptionRow"
 import Date from "../../../components/Date";
 import { useNavigate } from "react-router-dom";
 
@@ -19,7 +20,7 @@ const LehrbetriebLernendeRow = props => {
         navigate(`/lernende/${props.lernende.id_lernende}`);
     } 
 
-    return <Row
+    return <DescriptionRow
             a={`${props.lernende.vorname} ${props.lernende.nachname}`}
             b={props.lehrbetriebLernende.beruf}
             c={<Date date={props.lehrbetriebLernende.start}/>}

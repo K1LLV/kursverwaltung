@@ -3,14 +3,20 @@ import NoteForm from "../../../components/NoteForm";
 import Row from "../../../components/Row";
 import styles from "./Participant.module.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Participant = props => {
+    const navigate = useNavigate();
 
     const [isEdit, setIsEdit] = useState(false);
     const kursLernende = props.kurseLernende.find(x => x.fk_id_lernende == props.participant.id_lernende);
 
-    const handleEditNote = () => {setIsEdit(true)};
+    const handleEditNote = (e) => {
+        e.stopPropagation();
+        setIsEdit(true)
+    };
     const handleDelete = (e) => {
+        e.stopPropagation();
         axios.delete(
             `https://alex.undefiniert.ch/kurse_lernende/${kursLernende.id_kurs_lernende}`)
             .then(r => {
@@ -21,6 +27,7 @@ const Participant = props => {
     };
 
     const handleSubmit = (e) => {
+        e.stopPropagation();
         e.preventDefault();
         axios.put(
             `https://alex.undefiniert.ch/kurse_lernende/${kursLernende.id_kurs_lernende}`,
@@ -34,7 +41,12 @@ const Participant = props => {
 
     }
 
-    const handleCancelEdit = () => {
+    const handleClick = () => {
+        navigate(`/lernende/${props.participant.id_lernende}`);
+    }
+
+    const handleCancelEdit = (e) => {
+        e.stopPropagation();
         setIsEdit(false);
     }
 
@@ -43,7 +55,8 @@ const Participant = props => {
         b={isEdit ? <NoteForm note={kursLernende.note} styles={styles} onSubmit={handleSubmit} onCancelEdit={handleCancelEdit}/> : kursLernende.note != 0 ? kursLernende.note : "Keine Note"}
         styles={styles}
         onEdit={handleEditNote}
-        onDelete={handleDelete}/>
+        onDelete={handleDelete}
+        onClick={handleClick}/>
 }
 
 export default Participant;
