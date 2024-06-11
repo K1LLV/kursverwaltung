@@ -5,6 +5,7 @@ import styles from './Lehrbetriebe.module.css';
 import LehrbetriebRow from './LehrbetriebRow';
 import DescriptionRow from '../../components/DescriptionRow';
 import AddButton from '../../UI/AddButton';
+import { BASEURL } from "../../helpers/helpers";
 
 const Lehrbetriebe = props => {
 
@@ -22,10 +23,10 @@ const Lehrbetriebe = props => {
     };
 
     useEffect(() => {
-        axios.get('https://alex.undefiniert.ch/lehrbetriebe')
+        axios.get(`${BASEURL}lehrbetriebe`)
             .then(response => {
-                console.log(response.data.data);
-                setLehrbetriebe(response.data.data);
+                console.log(response.data);
+                setLehrbetriebe(response.data);
             })
             .catch(error => {
                  console.log(error);

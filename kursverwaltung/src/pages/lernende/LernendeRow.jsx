@@ -2,6 +2,7 @@ import styles from './LernendeRow.module.css';
 import { useNavigate } from 'react-router-dom';
 import Row from '../../components/Row';
 import axios from 'axios';
+import { BASEURL } from "../../helpers/helpers";
 
 const LernendeRow = props => {
 
@@ -10,7 +11,7 @@ const LernendeRow = props => {
     const deleteHandler = (e) => {
         e.stopPropagation();
 
-        axios.delete(`https://alex.undefiniert.ch/lernende/${props.id}`)
+        axios.delete(`${BASEURL}lernende/${props.id}`)
             .then(response => {
                 console.log(response.data.data);
                 props.onRender();

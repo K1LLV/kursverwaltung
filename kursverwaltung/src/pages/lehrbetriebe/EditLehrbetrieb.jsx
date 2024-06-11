@@ -4,6 +4,7 @@ import styles from './EditLehrbetrieb.module.css';
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { BASEURL } from "../../helpers/helpers";
 
 const EditLehrbetrieb = () => {
 
@@ -20,10 +21,10 @@ const EditLehrbetrieb = () => {
     );
 
     useEffect(() => {
-        axios.get(`https://alex.undefiniert.ch/lehrbetriebe/${params.id}`)
+        axios.get(`${BASEURL}lehrbetriebe/${params.id}`)
             .then(response => {
-                console.log(response.data.data[0]);
-                setFormData(response.data.data[0]);
+                console.log(response.data);
+                setFormData(response.data);
             })
             .catch(error => {
                 console.log(error);
@@ -39,7 +40,7 @@ const EditLehrbetrieb = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.put(`https://alex.undefiniert.ch/lehrbetriebe/${params.id}`, formData)
+        axios.put(`${BASEURL}lehrbetriebe/${params.id}`, formData)
             .then(response => {
                 console.log(response.data);
                 navigate('/lehrbetriebe');

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./AddKurs.module.css";
 import KursForm from "./KursForm";
+import { BASEURL } from "../../helpers/helpers";
 
 const AddKurs = () => {
     const navigate = useNavigate();
@@ -16,14 +17,14 @@ const AddKurs = () => {
             inhalt: "",
             start: "",
             ende: "",
-            fk_id_dozent: 0,
+            fk_id_dozent: "0",
         }
     );
 
     useEffect(() => {
-        axios.get('https://alex.undefiniert.ch/dozenten')
+        axios.get(`${BASEURL}dozenten`)
             .then(response => {
-                setDozenten(response.data.data);
+                setDozenten(response.data);
             })
             .catch(error => {
                     console.log(error);
@@ -41,7 +42,8 @@ const AddKurs = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(`https://alex.undefiniert.ch/kurse`, formData)
+        console.log('Form submitted:', formData);
+        axios.post(`${BASEURL}kurse`, formData)
             .then(response => {
                 navigate('/kurse');
                 console.log(response.data);
@@ -50,7 +52,6 @@ const AddKurs = () => {
                 console.log(error);
             });
 
-        console.log('Form submitted:', formData);
     };
 
 

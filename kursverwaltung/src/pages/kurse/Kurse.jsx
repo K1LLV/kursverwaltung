@@ -5,6 +5,7 @@ import styles from "./Kurse.module.css";
 import { useEffect, useState } from "react";
 import KursRow from "./KursRow";
 import { useNavigate } from "react-router-dom";
+import { BASEURL } from "../../helpers/helpers";
 
 const Kurse = props => {
     const navigate = useNavigate();
@@ -12,9 +13,9 @@ const Kurse = props => {
     const [isUpdate, setIsUpdate] = useState(false);
 
     useEffect(() => {
-        axios.get('https://alex.undefiniert.ch/kurse')
+        axios.get(`${BASEURL}kurse`)
             .then(response => {
-                setKurse(response.data.data);
+                setKurse(response.data);
             })
             .catch(error => {
                     console.log(error);

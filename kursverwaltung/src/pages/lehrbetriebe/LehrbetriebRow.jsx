@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from './LehrbetriebRow.module.css';
 import Row from "../../components/Row";
+import { BASEURL } from "../../helpers/helpers";
 
 
 const LehrbetriebRow = props => {
@@ -10,9 +11,9 @@ const LehrbetriebRow = props => {
 
     const deleteHandler = (e) => {
         e.stopPropagation();
-        axios.delete(`https://alex.undefiniert.ch/lehrbetriebe/${props.id}`)
+        axios.delete(`${BASEURL}lehrbetriebe/${props.id}`)
             .then(response => {
-                console.log(response.data.data);
+                console.log(response.data);
                 props.onRender();
             })
             .catch(error => {

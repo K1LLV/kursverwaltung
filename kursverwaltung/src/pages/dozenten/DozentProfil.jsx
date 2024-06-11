@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import styles from "./DozentProfil.module.css";
 import axios from "axios";
 import KursRow from "./profile/KursRow";
+import { BASEURL } from "../../helpers/helpers";
 
 const DozentProfil = () => {
 
@@ -12,9 +13,9 @@ const DozentProfil = () => {
     const [kurse, setKurse] = useState([]);
 
     useEffect(() => {
-        axios.get(`https://alex.undefiniert.ch/dozenten/${params.id}`)
+        axios.get(`${BASEURL}dozenten/${params.id}`)
             .then(r =>{
-                setDozent(r.data.data[0])
+                setDozent(r.data)
             })
             .catch(e => {
                 console.error(e);
@@ -23,9 +24,9 @@ const DozentProfil = () => {
 
     useEffect(() => {
         if(dozent){
-            axios.get(`https://alex.undefiniert.ch/kurse`)
+            axios.get(`${BASEURL}kurse`)
                 .then(r =>{
-                    setKurse(r.data.data.filter(x => x.fk_id_dozent == dozent.id_dozent));
+                    setKurse(r.data.filter(x => x.fk_id_dozent == dozent.id_dozent));
                 })
                 .catch(e => {
                     console.error(e);

@@ -3,6 +3,7 @@ import LernendeForm from "./LernendeForm";
 import { useParams, useNavigate } from "react-router-dom";
 import styles from './EditLernende.module.css';
 import axios from "axios";
+import { BASEURL } from "../../helpers/helpers";
 
 const EditLernende = props => {
     const params = useParams();
@@ -19,7 +20,7 @@ const EditLernende = props => {
             plz: '',
             strasse: '',
             ort: '',
-            fk_id_land: 0,
+            fk_id_land: '0',
             geschlecht: '',
             telefon: '',
             handy: '',
@@ -37,9 +38,9 @@ const EditLernende = props => {
     }
 
     useEffect(() => {
-        axios.get(`https://alex.undefiniert.ch/lernende/${params.id}`)
+        axios.get(`${BASEURL}lernende/${params.id}`)
             .then(response => {
-                const lernende = response.data.data[0];
+                const lernende = response.data;
                 setLernendeId(lernende.id_lernende);
                 lernende.geburtsdatum = formatDate(lernende.geburtsdatum);
                 setFormData(lernende);
@@ -48,25 +49,25 @@ const EditLernende = props => {
                 console.log(error);
             });
 
-        axios.get('https://alex.undefiniert.ch/laender')
+        axios.get(`${BASEURL}laender`)
             .then(response => {
-                laender.current = response.data.data;
+                laender.current = response.data;
             })
             .catch(error => {
                 console.log(error);
             });
 
-        axios.get('https://alex.undefiniert.ch/lehrbetriebe')
+        axios.get(`${BASEURL}lehrbetriebe`)
             .then(response => {
-                setBetriebe(response.data.data);
+                setBetriebe(response.data);
             })
             .catch(error => {
                  console.log(error);
             });
 
-        axios.get('https://alex.undefiniert.ch/lehrbetrieb_lernende')
+        axios.get(`${BASEURL}lehrbetrieb_lernende`)
             .then(response => {
-                setLehrbetriebLernende(response.data.data);
+                setLehrbetriebLernende(response.data);
             })
             .catch(error => {
                  console.log(error);
@@ -89,7 +90,7 @@ const EditLernende = props => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.put(`https://alex.undefiniert.ch/lernende/${params.id}`, formData)
+        axios.put(`${BASEURL}lernende/${params.id}`, formData)
             .then(response => {
                 navigate('/lernende');
                 console.log(response.data);

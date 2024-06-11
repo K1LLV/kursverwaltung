@@ -5,6 +5,7 @@ import editStyles from "./LehrbetriebLernendeRowEdit.module.css";
 import axios from "axios";
 import Date from "../../../components/Date";
 import { useNavigate } from "react-router-dom";
+import { BASEURL } from "../../../helpers/helpers";
 
 const LehrbetriebLernendeRow = props => {
     const navigate = useNavigate();
@@ -24,7 +25,7 @@ const LehrbetriebLernendeRow = props => {
     };
     const handleDelete = (e) => {
         e.stopPropagation();
-        axios.delete(`https://alex.undefiniert.ch/lehrbetrieb_lernende/${props.lehrbetriebLernende.id_lehrbetrieb_lernende}`)
+        axios.delete(`${BASEURL}lehrbetrieb_lernende/${props.lehrbetriebLernende.id_lehrbetrieb_lernende}`)
             .then(() => {
                 props.onUpdate();
             })
@@ -35,7 +36,7 @@ const LehrbetriebLernendeRow = props => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.put(`https://alex.undefiniert.ch/lehrbetrieb_lernende/${props.lehrbetriebLernende.id_lehrbetrieb_lernende}`, formData)
+        axios.put(`${BASEURL}lehrbetrieb_lernende/${props.lehrbetriebLernende.id_lehrbetrieb_lernende}`, formData)
             .then(() => {
                 setIsEdit(false);
                 props.onUpdate();

@@ -7,6 +7,7 @@ import Participant from "./KursProfile/Participant";
 import DescriptionRow from "../../components/DescriptionRow";
 import AddButton from "../../UI/AddButton"
 import AddParticipantForm from "./KursProfile/AddParticipantForm";
+import { BASEURL } from "../../helpers/helpers";
 
 const KursProfile = props => {
     const params = useParams();
@@ -18,9 +19,9 @@ const KursProfile = props => {
     const [isAdd, setIsAdd] = useState(false);
 
     useEffect(() => {
-        axios.get(`https://alex.undefiniert.ch/kurse/${params.id}`)
+        axios.get(`${BASEURL}kurse/${params.id}`)
             .then(response => {
-                setKurs(response.data.data[0]);
+                setKurs(response.data);
             })
             .catch(error => {
                 console.log(error);
@@ -31,25 +32,25 @@ const KursProfile = props => {
         if (kurs) {
             if(kurs.fk_id_dozent != 0)
             {
-                axios.get(`https://alex.undefiniert.ch/dozenten/${kurs.fk_id_dozent}`)
+                axios.get(`${BASEURL}dozenten/${kurs.fk_id_dozent}`)
                     .then(response => {
-                        setDozent(response.data.data[0]);
+                        setDozent(response.data);
                     })
                     .catch(error => {
                         console.log(error);
                     });
             }
-            axios.get('https://alex.undefiniert.ch/kurse_lernende')
+            axios.get(`${BASEURL}kurse_lernende`)
                 .then(response => {
-                    setKurseLernende(response.data.data.filter(x => x.fk_id_kurs == kurs.id_kurs));
+                    setKurseLernende(response.data.filter(x => x.fk_id_kurs == kurs.id_kurs));
                 })
                 .catch(error => {
                     console.log(error);
                 });
 
-            axios.get('https://alex.undefiniert.ch/lernende')
+            axios.get(`${BASEURL}lernende`)
                 .then(response => {
-                    setLernende(response.data.data);
+                    setLernende(response.data);
                 })
                 .catch(error => {
                     console.log(error);

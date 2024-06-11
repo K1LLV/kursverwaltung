@@ -5,6 +5,7 @@ import styles from "./Lernende.module.css";
 import DescriptionRow from "../../components/DescriptionRow";
 import LernendeRow from "./LernendeRow";
 import AddButton from "../../UI/AddButton";
+import { BASEURL } from "../../helpers/helpers";
 
 const Lernende = props => {
     const [shouldRender, setShouldRender] = useState(true);
@@ -23,18 +24,18 @@ const Lernende = props => {
     };
 
     useEffect(() => {
-        axios.get('https://alex.undefiniert.ch/lehrbetriebe')
+        axios.get(`${BASEURL}lehrbetriebe`)
             .then(response => {
-                setBetriebe(response.data.data);
+                setBetriebe(response.data);
             })
             .catch(error => {
                  console.log(error);
             });
 
-        axios.get('https://alex.undefiniert.ch/lehrbetrieb_lernende')
+        axios.get(`${BASEURL}lehrbetrieb_lernende`)
             .then(response => {
-                console.log(response.data.data);
-                setLehrbetriebLernende(response.data.data);
+                console.log(response.data);
+                setLehrbetriebLernende(response.data);
             })
             .catch(error => {
                  console.log(error);
@@ -42,9 +43,9 @@ const Lernende = props => {
     }, []);
 
     useEffect(() => {
-        axios.get('https://alex.undefiniert.ch/lernende')
+        axios.get(`${BASEURL}lernende`)
             .then(response => {
-                setLernende(response.data.data);
+                setLernende(response.data);
             })
             .catch(error => {
                  console.log(error);

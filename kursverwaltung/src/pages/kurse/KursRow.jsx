@@ -3,6 +3,7 @@ import Row from "../../components/Row";
 import styles from "./KursRow.module.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { BASEURL } from "../../helpers/helpers";
 
 const KursRow = props => {
     const navigate = useNavigate();
@@ -10,9 +11,9 @@ const KursRow = props => {
     const [dozent, setDozent] = useState(null);
 
     useEffect(() => {
-        axios.get(`https://alex.undefiniert.ch/dozenten/${props.kurs.fk_id_dozent}`)
+        axios.get(`${BASEURL}dozenten/${props.kurs.fk_id_dozent}`)
             .then(response => {
-                setDozent(response.data.data[0]);
+                setDozent(response.data);
             })
             .catch(error => {
                 console.log(error);
@@ -25,7 +26,7 @@ const KursRow = props => {
     };
 
     const deleteHandler = () => {
-        axios.delete(`https://alex.undefiniert.ch/kurse/${props.kurs.id_kurs}`)
+        axios.delete(`${BASEURL}kurse/${props.kurs.id_kurs}`)
             .then(response => {
                 console.log(response);
                 props.onUpdate();

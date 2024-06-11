@@ -3,6 +3,7 @@ import DozentForm from "./DozentForm";
 import axios from "axios";
 import styles from "./EditDozent.module.css"
 import { useNavigate, useParams } from "react-router-dom";
+import { BASEURL } from "../../helpers/helpers";
 
 const EditDozent = props => {
     const params = useParams();
@@ -24,13 +25,13 @@ const EditDozent = props => {
     const [laender, setLaender] = useState([]);
 
     useEffect(() => {
-        axios.get(`https://alex.undefiniert.ch/dozenten/${params.id}`)
-            .then(r => setFormData(r.data.data[0]))
+        axios.get(`${BASEURL}dozenten/${params.id}`)
+            .then(r => setFormData(r.data))
             .catch(e => console.log(e));
 
-        axios.get('https://alex.undefiniert.ch/laender')
+        axios.get(`${BASEURL}laender`)
             .then(response => {
-                setLaender(response.data.data);
+                setLaender(response.data);
             })
             .catch(error => {
                 console.log(error);
@@ -46,7 +47,7 @@ const EditDozent = props => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.put(`https://alex.undefiniert.ch/dozenten/${params.id}`, formData)
+        axios.put(`${BASEURL}dozenten/${params.id}`, formData)
             .then(response => {
                 console.log(formData);
                 console.log(response.data);

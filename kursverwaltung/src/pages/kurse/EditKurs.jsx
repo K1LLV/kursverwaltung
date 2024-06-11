@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import styles from "./EditKurs.module.css";
 import KursForm from "./KursForm";
+import { BASEURL } from "../../helpers/helpers";
 
 const EditKurs = () => {
     const params = useParams();
@@ -14,18 +15,18 @@ const EditKurs = () => {
     const [formData, setFormData] = useState(null);
 
     useEffect(() => {
-        axios.get(`https://alex.undefiniert.ch/kurse/${params.id}`)
+        axios.get(`${BASEURL}kurse/${params.id}`)
                 .then(response => {
-                    console.log(response.data.data[0]);
-                    setKurs(response.data.data[0]);
-                    setFormData(response.data.data[0]);
+                    console.log(response.data);
+                    setKurs(response.data);
+                    setFormData(response.data);
                 })
                 .catch(error => {
                      console.log(error);
                 });
-        axios.get('https://alex.undefiniert.ch/dozenten')
+        axios.get(`${BASEURL}dozenten`)
             .then(response => {
-                setDozenten(response.data.data);
+                setDozenten(response.data);
             })
             .catch(error => {
                     console.log(error);
@@ -43,7 +44,7 @@ const EditKurs = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.put(`https://alex.undefiniert.ch/kurse/${params.id}`, formData)
+        axios.put(`${BASEURL}kurse/${params.id}`, formData)
             .then(response => {
                 navigate('/kurse');
                 console.log(response.data);

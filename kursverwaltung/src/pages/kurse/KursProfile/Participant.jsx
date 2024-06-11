@@ -4,6 +4,7 @@ import Row from "../../../components/Row";
 import styles from "./Participant.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BASEURL } from "../../../helpers/helpers";
 
 const Participant = props => {
     const navigate = useNavigate();
@@ -18,7 +19,7 @@ const Participant = props => {
     const handleDelete = (e) => {
         e.stopPropagation();
         axios.delete(
-            `https://alex.undefiniert.ch/kurse_lernende/${kursLernende.id_kurs_lernende}`)
+            `${BASEURL}kurse_lernende/${kursLernende.id_kurs_lernende}`)
             .then(r => {
                 console.log("r",r);
                 props.onUpdate();
@@ -30,7 +31,7 @@ const Participant = props => {
         e.stopPropagation();
         e.preventDefault();
         axios.put(
-            `https://alex.undefiniert.ch/kurse_lernende/${kursLernende.id_kurs_lernende}`,
+            `${BASEURL}kurse_lernende/${kursLernende.id_kurs_lernende}`,
             {note: e.target.note.value})
             .then(r => {
                 console.log("r",r);

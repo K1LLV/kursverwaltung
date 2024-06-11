@@ -4,6 +4,7 @@ import styles from "./LehrbetriebProfile.module.css";
 import axios from "axios";
 import LehrbetriebLernendeRow from "./lehrbetriebProfile/LehrbetriebLernendeRow";
 import DescriptionRow from "../../components/DescriptionRow";
+import { BASEURL } from "../../helpers/helpers";
 
 const LehrbetriebProfile = () => {
     const params = useParams();
@@ -15,14 +16,14 @@ const LehrbetriebProfile = () => {
         const fetchLehrbetriebData = async () => {
             try {
                 const [lehrbetriebResponse, lernendeResponse, lehrbetriebLernendeResponse] = await Promise.all([
-                    axios.get(`https://alex.undefiniert.ch/lehrbetriebe/${params.id}`),
-                    axios.get(`https://alex.undefiniert.ch/lernende`),
-                    axios.get(`https://alex.undefiniert.ch/lehrbetrieb_lernende`)
+                    axios.get(`${BASEURL}lehrbetriebe/${params.id}`),
+                    axios.get(`${BASEURL}lernende`),
+                    axios.get(`${BASEURL}lehrbetrieb_lernende`)
                 ]);
 
-                setLehrbetrieb(lehrbetriebResponse.data.data[0]);
-                setLernende(lernendeResponse.data.data);
-                setLehrbetriebLernende(lehrbetriebLernendeResponse.data.data);
+                setLehrbetrieb(lehrbetriebResponse.data);
+                setLernende(lernendeResponse.data);
+                setLehrbetriebLernende(lehrbetriebLernendeResponse.data);
             } catch (error) {
                 console.log(error);
             }

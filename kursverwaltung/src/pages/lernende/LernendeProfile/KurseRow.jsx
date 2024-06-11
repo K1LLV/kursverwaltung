@@ -4,6 +4,7 @@ import NoteForm from "../../../components/NoteForm";
 import styles from './KurseRow.module.css';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BASEURL } from "../../../helpers/helpers";
 
 const KurseRow = props => {
     const navigate = useNavigate();
@@ -23,7 +24,7 @@ const KurseRow = props => {
         e.stopPropagation();
         e.preventDefault();
         console.log(e.target.note.value);
-        axios.put(`https://alex.undefiniert.ch/kurse_lernende/${props.kursLernende.id_kurs_lernende}`,
+        axios.put(`${BASEURL}kurse_lernende/${props.kursLernende.id_kurs_lernende}`,
             {note: e.target.note.value})
                 .then(() => {
                     setEditNote(false);
@@ -36,7 +37,7 @@ const KurseRow = props => {
 
     const handleDelete = (e) => {
         e.stopPropagation();
-        axios.delete(`https://alex.undefiniert.ch/kurse_lernende/${props.kursLernende.id_kurs_lernende}`)
+        axios.delete(`${BASEURL}kurse_lernende/${props.kursLernende.id_kurs_lernende}`)
             .then(() => {
                 props.onUpdate();
             })

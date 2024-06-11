@@ -3,6 +3,7 @@ import axios from 'axios';
 import LehrbetriebForm from './LehrbetriebForm';
 import styles from './AddLehrbetrieb.module.css/';
 import { useNavigate } from 'react-router-dom';
+import { BASEURL } from "../../helpers/helpers";
 
 const AddLehrbetrieb = (props) => {
     const navigate = useNavigate();
@@ -23,7 +24,7 @@ const AddLehrbetrieb = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('https://alex.undefiniert.ch/lehrbetriebe', formData)
+        axios.post(`${BASEURL}lehrbetriebe`, formData)
             .then(response => {
                 console.log(response.data);
                 navigate('/lehrbetriebe');

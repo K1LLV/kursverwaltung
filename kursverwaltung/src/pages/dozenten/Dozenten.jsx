@@ -5,6 +5,7 @@ import DescriptionRow from "../../components/DescriptionRow";
 import AddButton from "../../UI/AddButton";
 import styles from "./Dozenten.module.css"
 import DozentRow from "./DozentRow";
+import { BASEURL } from "../../helpers/helpers";
 
 const Dozenten = props => {
     const navigate = useNavigate();
@@ -13,10 +14,10 @@ const Dozenten = props => {
     const [isUpdate, setIsUpdate] = useState(false);
 
     useEffect(() => {
-        axios.get("https://alex.undefiniert.ch/dozenten")
+        axios.get(`${BASEURL}dozenten`)
             .then(r => {
-                console.log(r.data.data);
-                setDozenten(r.data.data);
+                console.log("ddd", r.data);
+                setDozenten(r.data);
             })
             .catch(e => {
                 console.log(e);

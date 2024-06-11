@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from './AddLehrbetriebForm.module.css';
 import axios from 'axios';
+import { BASEURL } from "../../../helpers/helpers";
 
 const AddLehrbetriebForm = props => {
 
@@ -35,7 +36,19 @@ const AddLehrbetriebForm = props => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('https://alex.undefiniert.ch/lehrbetrieb_lernende', formData)
+        if(formData.start == "")
+        {
+            setFormData((x) => {
+                return ({...x, ["start"]: null});
+            });
+        }
+        if(formData.ende == "")
+        {
+            setFormData((x) => {
+                return ({...x, ["ende"]: null});
+            });
+        }
+        axios.post(`${BASEURL}lehrbetrieb_lernende`, formData)
                 .then(() => {
                     console.log(formData);
                     props.onUpdate();

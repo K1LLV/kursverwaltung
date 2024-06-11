@@ -9,6 +9,7 @@ import AddButton from "../../UI/AddButton";
 import AddKursNoteForm from "./LernendeProfile/AddKursNoteForm";
 import LehrbetriebLernendeRow from "./LernendeProfile/LehrbetriebLernendeRow";
 import AddLehrbetriebForm from "./LernendeProfile/AddLehrbetriebForm";
+import { BASEURL } from "../../helpers/helpers";
 
 const LernendeProfile = porps => {
     const navigate = useNavigate();
@@ -24,41 +25,41 @@ const LernendeProfile = porps => {
     const [isAddLehrbetrieb, setIsAddLehrbetrieb] = useState(false);
 
     useEffect(() => {
-        axios.get(`https://alex.undefiniert.ch/lernende/${params.id}`)
+        axios.get(`${BASEURL}lernende/${params.id}`)
             .then(response => {
-                setLernende(response.data.data[0]);
+                setLernende(response.data);
             })
             .catch(error => {
                 console.log(error);
             });
 
-        axios.get('https://alex.undefiniert.ch/kurse')
+        axios.get(`${BASEURL}kurse`)
             .then(response => {
-                setKurse(response.data.data);
+                setKurse(response.data);
             })
             .catch(error => {
                 console.log(error);
             });
 
-        axios.get('https://alex.undefiniert.ch/kurse_lernende')
+        axios.get(`${BASEURL}kurse_lernende`)
             .then(response => {
-                setKurseLernende(response.data.data);
+                setKurseLernende(response.data);
             })
             .catch(error => {
                 console.log(error);
             });
 
-        axios.get('https://alex.undefiniert.ch/lehrbetriebe')
+        axios.get(`${BASEURL}lehrbetriebe`)
             .then(response => {
-                setLehrbetriebe(response.data.data);
+                setLehrbetriebe(response.data);
             })
             .catch(error => {
                 console.log(error);
             });
         
-        axios.get('https://alex.undefiniert.ch/lehrbetrieb_lernende')
+        axios.get(`${BASEURL}lehrbetrieb_lernende`)
             .then(response => {
-                setLehrbetriebLernende(response.data.data);
+                setLehrbetriebLernende(response.data);
             })
             .catch(error => {
                 console.log(error);

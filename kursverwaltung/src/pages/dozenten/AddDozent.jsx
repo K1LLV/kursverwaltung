@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styles from './AddDozent.module.css'
 import axios from 'axios';
 import DozentForm from "./DozentForm";
+import { BASEURL } from "../../helpers/helpers";
 
 const AddDozent = () => {
     const navigate = useNavigate();
@@ -14,7 +15,7 @@ const AddDozent = () => {
             plz: '',
             strasse: '',
             ort: '',
-            fk_id_land: 0,
+            fk_id_land: '0',
             geschlecht: '',
             telefon: '',
             handy: '',
@@ -26,9 +27,9 @@ const AddDozent = () => {
     const [laender, setLaender] = useState(null);
 
     useEffect(() => {
-        axios.get('https://alex.undefiniert.ch/laender')
+        axios.get(`${BASEURL}laender`)
             .then(response => {
-                setLaender(response.data.data);
+                setLaender(response.data);
             })
             .catch(error => {
                 console.log(error);
@@ -44,7 +45,7 @@ const AddDozent = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('https://alex.undefiniert.ch/dozenten', formData)
+        axios.post(`${BASEURL}dozenten`, formData)
             .then(response => {
                 console.log(response.data);
                 navigate('/dozenten');
@@ -73,5 +74,7 @@ const AddDozent = () => {
         </div>
     );    
 };
+
+
 
 export default AddDozent;

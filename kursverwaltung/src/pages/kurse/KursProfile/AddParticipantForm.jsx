@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from './AddParticipantForm.module.css';
 import axios from 'axios';
+import { BASEURL } from "../../../helpers/helpers";
 
 const AddParticipantForm = props => {
 
@@ -29,7 +30,7 @@ const AddParticipantForm = props => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('https://alex.undefiniert.ch/kurse_lernende', formData)
+        axios.post(`${BASEURL}kurse_lernende`, formData)
                 .then(() => {
                     console.log(formData);
                     props.onUpdate();

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from './AddLernende.module.css';
 import LernendeForm from "./LernendeForm";
+import { BASEURL } from "../../helpers/helpers";
 
 const AddLernende = props => {
     const navigate = useNavigate();
@@ -14,7 +15,7 @@ const AddLernende = props => {
             plz: '',
             strasse: '',
             ort: '',
-            fk_id_land: 0,
+            fk_id_land: "0",
             geschlecht: '',
             telefon: '',
             handy: '',
@@ -27,9 +28,9 @@ const AddLernende = props => {
     const [laender, setLaender] = useState(null);
 
     useEffect(() => {
-        axios.get('https://alex.undefiniert.ch/laender')
+        axios.get(`${BASEURL}laender`)
             .then(response => {
-                setLaender(response.data.data);
+                setLaender(response.data);
             })
             .catch(error => {
                 console.log(error);
@@ -45,7 +46,7 @@ const AddLernende = props => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('https://alex.undefiniert.ch/lernende', formData)
+        axios.post(`${BASEURL}lernende`, formData)
             .then(response => {
                 console.log(response.data);
                 navigate('/lernende');

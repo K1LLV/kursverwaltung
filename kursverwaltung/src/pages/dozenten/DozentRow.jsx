@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Row from "../../components/Row";
 import styles from "./DozentRow.module.css"
 import axios from "axios";
+import { BASEURL } from "../../helpers/helpers";
 
 const DozentRow = props => {
 
@@ -9,7 +10,7 @@ const DozentRow = props => {
 
     const handleDelete = (e) => {
         e.stopPropagation();
-        axios.delete(`https://alex.undefiniert.ch/dozenten/${props.dozent.id_dozent}`)
+        axios.delete(`${BASEURL}dozenten/${props.dozent.id_dozent}`)
             .then(() => {
                 props.onUpdate();
             })
